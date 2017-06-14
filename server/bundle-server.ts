@@ -1,7 +1,6 @@
 import { Express } from 'express';
 import * as webpack from 'webpack';
 import * as wepackDevMiddleware from 'webpack-dev-middleware';
-import * as webpackDevServer from 'webpack-dev-server';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
 import path = require('path');
 // tslint:disable-next-line:no-var-requires
@@ -27,30 +26,15 @@ export default (app: Express) => {
     } as any,
   );
 
-  const bundler = new webpackDevServer(compiler, {
-    hot: true,
-    noInfo: true,
-    publicPath: '/build/',
-    quiet: false,
-    stats: {
-      colors: true,
-    },
-  });
-
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
 
   app.get('*', function response(_req, res) {
     res.write(
       (middleware as any).fileSystem.readFileSync(
-        path.join(__dirname, 'dist/index.html'),
+        path.join(__dirname, 'build/index.html'),
       ),
     );
     res.end();
-  });
-
-  bundler.listen(8080, 'localhost', () => {
-    // tslint:disable-next-line:no-console
-    console.log('Bundling project, please wait...');
   });
 };
