@@ -1,27 +1,31 @@
-import {Express} from 'express';
+import { Express } from 'express';
 import * as webpack from 'webpack';
 import * as wepackDevMiddleware from 'webpack-dev-middleware';
 import * as webpackDevServer from 'webpack-dev-server';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
+import path = require('path');
 // tslint:disable-next-line:no-var-requires
 const config: any = require('../webpack.development.config');
 
 export default (app: Express) => {
   const compiler = webpack(config);
-  const middleware = wepackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    // tslint:disable-next-line:object-literal-sort-keys
-    contentBase: 'src',
-    stats: {
-      colors: true,
-      hash: false,
-      timings: true,
+  const middleware = wepackDevMiddleware(
+    compiler,
+    {
+      publicPath: config.output.publicPath,
       // tslint:disable-next-line:object-literal-sort-keys
-      chunks: false,
-      chunkModules: false,
-      modules: false,
-    },
-  } as any);
+      contentBase: 'client',
+      stats: {
+        colors: true,
+        hash: false,
+        timings: true,
+        // tslint:disable-next-line:object-literal-sort-keys
+        chunks: false,
+        chunkModules: false,
+        modules: false,
+      },
+    } as any,
+  );
 
   const bundler = new webpackDevServer(compiler, {
     hot: true,
@@ -35,6 +39,15 @@ export default (app: Express) => {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
+
+  app.get('*', function response(_req, res) {
+    res.write(
+      (middleware as any).fileSystem.readFileSync(
+        path.join(__dirname, 'dist/index.html'),
+      ),
+    );
+    res.end();
+  });
 
   bundler.listen(8080, 'localhost', () => {
     // tslint:disable-next-line:no-console
