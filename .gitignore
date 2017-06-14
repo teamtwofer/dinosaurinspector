@@ -57,3 +57,11 @@ typings/
 # dotenv environment variables file
 .env
 
+# awesome Typescript
+.awcache
+
+# compiled JS
+server/**/*.js
+server/**/*.js.map
+client/**/*.js
+client/**/*.js.map

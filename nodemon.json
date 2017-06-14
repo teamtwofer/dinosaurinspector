@@ -1,0 +1,6 @@
+{
+  "watch": ["server", "types"],
+  "ext": "ts",
+  "ignore": ["server/**/__tests__/*"],
+  "exec": "npm run server:dev"
+}

@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig",
+    "filesGlob": [
+        "./server/**/*.ts",
+        "./types/**/*.ts",
+        "./lang/**/*.ts"
+    ],
+    "exclude": [
+         "node_modules"
+    ],
+    "include": [
+        "./server/index.ts",
+        "./server/**/*.ts"
+    ]
+}

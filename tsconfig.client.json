@@ -1,0 +1,18 @@
+{
+    "extends": "./tsconfig",
+    "compilerOptions": {
+        "jsx": "react",
+        "module": "commonjs"
+    },
+    "exclude": [
+         "node_modules"
+    ],
+    "include": [
+        "./client/entry.ts",
+        "./client/**/*.ts?(x)"
+    ],    
+    "awesomeTypescriptLoaderOptions": {
+        "useCache": true,
+        "useBabel": true
+    }
+}

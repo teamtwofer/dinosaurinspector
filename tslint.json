@@ -1,0 +1,16 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-react"
+    ],
+    "jsRules": {},
+    "rules": {
+        "quotemark": [true, "single", "jsx-double"],
+        "align": [true, "parameters", "statements", "arguments", "elements", "members"],
+        "member-access": [true, "no-public"],
+        "variable-name": [true, "allow-leading-underscore"],
+        "jsx-boolean-value": [true,"never"]
+    },
+    "rulesDirectory": []
+}
