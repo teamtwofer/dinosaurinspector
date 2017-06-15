@@ -1,3 +1,5 @@
+declare const require: (s: string) => React.ComponentClass<any>;
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -20,5 +22,9 @@ const render = (Component: React.ComponentClass<any>) => {
 render(Test);
 
 if (module.hot) {
-  module.hot.accept('./test/test.tsx', () => render(Test));
+  module.hot.accept(() => {
+    // tslint:disable-next-line:variable-name
+    const NewTest = require('./test/test');
+    render(NewTest);
+  });
 }

@@ -25,6 +25,14 @@ module.exports = {
         loaders: [
             {
                 test: /\.tsx?$/,
+                loader: 'react-hot-loader/webpack',
+                include: [
+                    path.resolve(__dirname, 'client')        
+                ],
+                exclude: [nodeModulesPath]
+            },
+            {
+                test: /\.tsx?$/,
                 loader: 'awesome-typescript-loader',
                 include: [
                     path.resolve(__dirname, 'client')        
