@@ -3,7 +3,7 @@ declare const require: (s: string) => React.ComponentClass<any>;
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import {Test} from './test/test';
+import { Test } from './test/test';
 
 declare const module: any;
 
