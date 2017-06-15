@@ -4,11 +4,12 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const path = require('path');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const buildPath = path.resolve(__dirname, 'public', 'build');
-const mainPath = path.resolve(__dirname, 'client', 'entry.ts');
+const mainPath = path.resolve(__dirname, 'client', 'entry.tsx');
 
 module.exports = {
     devtool: 'eval-source-map',
     entry: [
+        'react-hot-loader/patch',
         'webpack-hot-middleware/client?reload=true',
         mainPath
     ],
@@ -16,6 +17,9 @@ module.exports = {
         path: buildPath,
         filename: '[name].js',
         publicPath: '/'
+    },
+    resolve: {
+        extensions: [".webpack.js", ".web.js", ".js", ".json", ".ts", ".tsx"]
     },
     module: {
         loaders: [

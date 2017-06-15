@@ -13,7 +13,9 @@ export default (app: Express) => {
     {
       publicPath: config.output.publicPath,
       // tslint:disable-next-line:object-literal-sort-keys
-      contentBase: 'client',
+      contentBase: 'build',
+      hot: true,
+      noInfo: true,
       stats: {
         colors: true,
         hash: false,
@@ -28,13 +30,15 @@ export default (app: Express) => {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-
-  app.get('*', function response(_req, res) {
-    res.write(
-      (middleware as any).fileSystem.readFileSync(
-        path.join(__dirname, 'build/index.html'),
-      ),
-    );
-    res.end();
+  app.use('*', (_req, res, next) => {
+    const filename = path.join(__dirname, '/build/index.html');
+    compiler.outputFileSystem.readFile(filename, (err, result) => {
+      if (err) {
+        return next(err);
+      }
+      res.set('content-type', 'text/html');
+      res.send(result);
+      res.end();
+    });
   });
 };
