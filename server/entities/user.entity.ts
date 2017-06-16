@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import bcrypt = require('bcrypt');
 
 import { IRegisterUser, IUser } from '../../types/user';
@@ -19,7 +19,9 @@ export class User implements IUser {
 
   @PrimaryGeneratedColumn() id: number;
 
-  @Column() email: string;
+  @Column()
+  @Index({ unique: true })
+  email: string;
 
   @Column() name: string;
 
@@ -31,6 +33,10 @@ export class User implements IUser {
   }
 
   async setHashedPassword(password: string): Promise<this> {
+    if (process.env.NODE_ENV === 'test') {
+      this.hashedPassword = password;
+      return Promise.resolve(this);
+    }
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
     this.hashedPassword = hash;
     return this;

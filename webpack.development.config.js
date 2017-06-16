@@ -7,56 +7,68 @@ const buildPath = path.resolve(__dirname, 'public', 'build');
 const mainPath = path.resolve(__dirname, 'client', 'entry.tsx');
 
 module.exports = {
-    devtool: 'eval-source-map',
-    entry: [
-        'react-hot-loader/patch',
-        'webpack-hot-middleware/client?reload=true',
-        mainPath
-    ],
-    output: {
-        path: buildPath,
-        filename: '[name].js',
-        publicPath: '/'
-    },
-    resolve: {
-        extensions: [".webpack.js", ".web.js", ".js", ".json", ".ts", ".tsx"]
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.tsx?$/,
-                loader: 'react-hot-loader/webpack',
-                include: [
-                    path.resolve(__dirname, 'client')        
-                ],
-                exclude: [nodeModulesPath]
+  devtool: 'eval-source-map',
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client?reload=true',
+    mainPath,
+  ],
+  output: {
+    path: buildPath,
+    filename: '[name].js',
+    publicPath: '/',
+  },
+  resolve: {
+    extensions: ['.webpack.js', '.web.js', '.js', '.json', '.ts', '.tsx'],
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'react-hot-loader/webpack',
+          },
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              configFileName: 'tsconfig.client.json',
             },
-            {
-                test: /\.tsx?$/,
-                loader: 'awesome-typescript-loader',
-                include: [
-                    path.resolve(__dirname, 'client')        
-                ],
-                options: {
-                    configFileName: 'tsconfig.client.json'
-                },
-                exclude: [nodeModulesPath]
-            }
-        ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: 'public/index.tpl.html',
-            inject: 'body',
-            filename: 'index.html'
-        }),
+          },
+        ],
 
-        new webpack.optimize.OccurrenceOrderPlugin(),
+        include: [path.resolve(__dirname, 'client')],
+        exclude: [nodeModulesPath],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader', // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+          },
+          {
+            loader: 'sass-loader', // compiles Sass to CSS
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'public/index.tpl.html',
+      inject: 'body',
+      filename: 'index.html',
+    }),
 
-        new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
 
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('development')
-        })
-    ]
-}
+    new webpack.HotModuleReplacementPlugin(),
+
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development'),
+    }),
+  ],
+};

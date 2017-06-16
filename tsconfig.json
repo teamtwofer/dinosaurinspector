@@ -1,24 +1,22 @@
 {
   "compilerOptions": {
-      "target": "es6",
-      "jsx":"react",
-      "declaration": false,
-      "moduleResolution": "node",
-      "strict": true,
-      "noImplicitAny": false,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noImplicitReturns": true,
-      "noLib": false,
-      "pretty": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "preserveConstEnums": true,
-      "sourceMap": true,
-      "baseUrl": ".",
-      "module": "commonjs"
-  },
-  "exclude": [
-      "node_modules"
-  ]  
+    "target": "es6",
+    "jsx":"react",
+    "declaration": false,
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noLib": false,
+    "pretty": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "module": "commonjs"
+  }, 
+  "exclude": ["node_modules"]  
 }

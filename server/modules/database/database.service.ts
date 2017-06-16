@@ -15,16 +15,16 @@ export class DatabaseService {
 
   constructor(private readonly databaseConfig: DatabaseConfig) {}
 
-  private get connection(): Promise<Connection> {
+  get connection(): Promise<Connection> {
     if (this._connection) {
       return Promise.resolve(this._connection);
     }
     return createConnection(this.databaseConfig.getConfiguration())
-      .then((connection) => {
+      .then(connection => {
         this._connection = connection;
         return connection;
       })
-      .catch((e) => {
+      .catch(e => {
         // tslint:disable:no-console
         console.log('There was an error connection to the database');
         console.info(this.databaseConfig.getConfiguration());
@@ -38,7 +38,7 @@ export class DatabaseService {
   }
 
   async getRepository<T>(
-    entityClassOrName: ObjectType<T> | string,
+    entityClassOrName: ObjectType<T> | string
   ): Promise<Repository<T>> {
     return (await this.connection).getRepository<T>(entityClassOrName);
   }

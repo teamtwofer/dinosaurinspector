@@ -1,4 +1,5 @@
 import { Component } from '@nestjs/common';
+import { autobind } from 'core-decorators';
 import { Repository } from 'typeorm';
 
 import { ICrud } from '../../../types/crud';
@@ -8,8 +9,10 @@ import { DatabaseService } from '../database/database.service';
 
 @Component()
 export class UserService implements ICrud<User, IRegisterUser> {
-  constructor(private databaseService: DatabaseService) {
-    this.seed();
+  constructor(public databaseService: DatabaseService) {
+    if (process.env.NODE_ENV === 'development') {
+      this.seed();
+    }
   }
 
   private get repository(): Promise<Repository<User>> {
@@ -33,27 +36,33 @@ export class UserService implements ICrud<User, IRegisterUser> {
     return repo.find();
   }
 
+  @autobind
   async add(userToRegister: IRegisterUser) {
     const user = await User.from(userToRegister);
     return (await this.repository).persist(user);
   }
 
+  @autobind
   async addAll(...users: User[]) {
     return (await this.repository).persist(users);
   }
 
+  @autobind
   async getAll() {
     return (await this.repository).find();
   }
 
+  @autobind
   async get(id: number) {
     return (await this.repository).findOneById(id);
   }
 
+  @autobind
   async update(user: User) {
     return (await this.repository).persist(user);
   }
 
+  @autobind
   async remove(user: User) {
     return (await this.repository).remove(user);
   }

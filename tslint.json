@@ -6,11 +6,41 @@
     ],
     "jsRules": {},
     "rules": {
-        "quotemark": [true, "single", "jsx-double"],
-        "align": [true, "parameters", "statements", "arguments", "elements", "members"],
-        "member-access": [true, "no-public"],
-        "variable-name": [true, "allow-leading-underscore"],
-        "jsx-boolean-value": [true,"never"]
+        "quotemark": [
+            true,
+            "single",
+            "jsx-double"
+        ],
+        "align": [
+            true,
+            "parameters",
+            "statements",
+            "arguments",
+            "elements",
+            "members"
+        ],
+        "member-access": [
+            true,
+            "no-public"
+        ],
+        "variable-name": [
+            true,
+            "allow-leading-underscore"
+        ],
+        "jsx-boolean-value": [
+            true,
+            "never"
+        ],
+        "arrow-parens": [
+            true,
+            "ban-single-arg-parens"
+        ],
+        "trailing-comma": [
+            false
+        ],
+        "interface-name": [
+            false
+        ]
     },
     "rulesDirectory": []
 }

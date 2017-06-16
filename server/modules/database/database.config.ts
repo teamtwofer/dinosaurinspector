@@ -5,10 +5,12 @@ import { User } from '../../entities/user.entity';
 @Component()
 export class DatabaseConfig {
   getConfiguration(): ConnectionOptions {
+    const { env } = process;
+    const isTesting = env.NODE_ENV === 'test';
     return {
       autoSchemaSync: true,
       driver: {
-        database: 'dinosaur_development',
+        database: isTesting ? 'dinosaur_testing' : 'dinosaur_development',
         host: 'localhost',
         password: 'potato',
         port: 5432,
@@ -17,9 +19,10 @@ export class DatabaseConfig {
       },
       entities: [User],
       logging: {
-        logFailedQueryError: true,
-        logQueries: true,
+        logFailedQueryError: !isTesting,
+        logQueries: !isTesting,
       },
+      name: `${Date.now()}`,
       type: 'postgres',
     };
   }

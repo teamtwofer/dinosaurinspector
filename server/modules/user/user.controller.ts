@@ -18,7 +18,7 @@ import { UserService } from './user.service';
 
 @Controller()
 export class UserController {
-  private service: ICrud<User, IRegisterUser>;
+  service: ICrud<User, IRegisterUser>;
   private serializer: UserSerializer;
 
   constructor(userService: UserService, userSerializer: UserSerializer) {

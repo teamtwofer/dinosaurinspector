@@ -15,7 +15,7 @@ export default (app: Express) => {
       hot: true,
       noInfo: true,
       stats: 'minimal',
-    } as any,
+    } as any
   );
 
   app.use(middleware);
