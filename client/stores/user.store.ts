@@ -20,7 +20,7 @@ export const UserStore = types.model(
   {
     async loadUser() {
       this.isLoading = true;
-      const rawUser = await fetch('/api/user/5').then(r => r.json());
+      const rawUser = await fetch('/api/user/1').then(r => r.json());
       this.updateUser(rawUser);
     },
 

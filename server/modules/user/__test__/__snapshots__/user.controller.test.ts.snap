@@ -15,18 +15,3 @@ Object {
   "name": "ben",
 }
 `;
-
-exports[`UserController GET /users 1`] = `
-Array [
-  Object {
-    "email": "ben@twofer.co",
-    "id": 1,
-    "name": "ben",
-  },
-  Object {
-    "email": "liam@twofer.co",
-    "id": 2,
-    "name": "liam",
-  },
-]
-`;

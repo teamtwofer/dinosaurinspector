@@ -3,6 +3,8 @@ import 'reflect-metadata';
 import { Test } from '@nestjs/testing';
 import { Response } from 'express';
 
+import { IRegisterUser } from '../../../../types/user';
+import { User } from '../../../entities/user.entity';
 import { DatabaseConfig } from '../../database/database.config';
 import { DatabaseService } from '../../database/database.service';
 import { UserController } from '../user.controller';
@@ -13,6 +15,8 @@ describe('UserController', () => {
   let controller: UserController;
   let db: DatabaseService;
   let jsonResonse: object;
+  let ben: IRegisterUser;
+  let user: User;
 
   const response: Response = {
     status: () => ({
@@ -33,9 +37,18 @@ describe('UserController', () => {
       controllers: [UserController],
     });
 
+    ben = {
+      email: 'ben@twofer.co',
+      name: 'ben',
+      password: 'potato',
+    };
+
     controller = Test.get<UserController>(UserController);
     db = Test.get(DatabaseService);
     jsonResonse = {};
+    user = await controller.service.add(ben);
+    ben.password = 'potato';
+    return;
   });
 
   afterEach(async () => {
@@ -47,48 +60,18 @@ describe('UserController', () => {
     return;
   });
 
-  it('GET /users', async () => {
-    const ben = {
-      email: 'ben@twofer.co',
-      name: 'ben',
-      password: 'potato',
-    };
-
-    await controller.service.add(ben);
-
-    const liam = {
-      email: 'liam@twofer.co',
-      name: 'liam',
-      password: 'potato',
-    };
-
-    await controller.service.add(liam);
-    await controller.getAllUsers(null, response);
-
+  it('GET /user/:id', async () => {
+    await controller.getUser({ user }, response);
     expect(jsonResonse).toMatchSnapshot();
   });
 
-  it('GET /user/:id', async () => {
-    const ben = {
-      email: 'ben@twofer.co',
-      name: 'ben',
-      password: 'potato',
-    };
-
-    const user = await controller.service.add(ben);
-    await controller.getUser(null, response, user.id);
-    expect(jsonResonse).toMatchSnapshot();
+  it('GET /user/token', async () => {
+    await controller.generateToken(response, ben);
+    expect((jsonResonse as any).token).toBeDefined();
   });
 
   it('DELETE /user/:id', async () => {
-    const ben = {
-      email: 'ben@twofer.co',
-      name: 'ben',
-      password: 'potato',
-    };
-
-    const user = await controller.service.add(ben);
-    await controller.deleteUser(null, response, user.id);
+    await controller.deleteUser({ user: { ...user } }, response);
     expect(jsonResonse).toMatchSnapshot();
   });
 });

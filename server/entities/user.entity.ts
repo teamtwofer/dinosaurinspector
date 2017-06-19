@@ -3,7 +3,7 @@ import bcrypt = require('bcrypt');
 
 import { IRegisterUser, IUser } from '../../types/user';
 
-const SALT_ROUNDS = 12;
+const SALT_ROUNDS = process.env.NODE_ENV === 'test' ? 1 : 12;
 
 @Entity()
 export class User implements IUser {
@@ -33,10 +33,6 @@ export class User implements IUser {
   }
 
   async setHashedPassword(password: string): Promise<this> {
-    if (process.env.NODE_ENV === 'test') {
-      this.hashedPassword = password;
-      return Promise.resolve(this);
-    }
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
     this.hashedPassword = hash;
     return this;

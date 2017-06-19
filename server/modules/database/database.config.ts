@@ -14,7 +14,7 @@ export class DatabaseConfig {
         host: 'localhost',
         password: 'potato',
         port: 5432,
-        type: 'postgres',
+        type: isTesting ? 'sqlite' : 'postgres',
         username: 'bbayard',
       },
       entities: [User],
@@ -23,7 +23,7 @@ export class DatabaseConfig {
         logQueries: !isTesting,
       },
       name: `${Date.now()}`,
-      type: 'postgres',
+      type: (isTesting ? 'sqlite' : 'postgres') as any, // this field isn't necessary, but TS complains without it
     };
   }
 }

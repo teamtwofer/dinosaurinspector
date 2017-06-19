@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import { NestFactory } from '@nestjs/core';
+import bodyParser = require('body-parser');
 import * as express from 'express';
 import * as morgan from 'morgan';
 import * as path from 'path';
@@ -13,6 +14,7 @@ const publicPath = path.resolve(__dirname, 'public');
 const server = express();
 server.use(morgan('dev'));
 server.use(express.static(publicPath));
+server.use(bodyParser.json());
 
 if (!isProduction) {
   bundle(server);

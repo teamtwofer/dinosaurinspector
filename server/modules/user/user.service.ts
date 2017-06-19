@@ -1,10 +1,14 @@
 import { Component } from '@nestjs/common';
 import { autobind } from 'core-decorators';
+import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
+import bcrypt = require('bcrypt');
 
+import { lang } from '../../../lang';
 import { ICrud } from '../../../types/crud';
 import { IRegisterUser } from '../../../types/user';
 import { User } from '../../entities/user.entity';
+import key from '../../entities/user.key';
 import { DatabaseService } from '../database/database.service';
 
 @Component()
@@ -65,5 +69,40 @@ export class UserService implements ICrud<User, IRegisterUser> {
   @autobind
   async remove(user: User) {
     return (await this.repository).remove(user);
+  }
+
+  @autobind
+  async generateToken({
+    email,
+    password,
+  }: Partial<IRegisterUser>): Promise<string> {
+    const user = await (await this.repository).findOne({ email });
+    if (!user) {
+      throw new Error(lang.INVALID_EMAIL_OR_PASSWORD());
+    }
+
+    const validPassword = await bcrypt.compare(password, user.hashedPassword);
+
+    if (!validPassword) {
+      throw new Error(lang.INVALID_EMAIL_OR_PASSWORD());
+    }
+
+    const { id } = user;
+
+    return jwt.sign({ id } as object, key, {
+      expiresIn: 60 * 60 * 24 * 14,
+    });
+  }
+
+  @autobind
+  async validateToken(token: string): Promise<number> {
+    return await new Promise<number>((res, rej) => {
+      jwt.verify(token, key, (err, decoded: { id: number }) => {
+        if (err) {
+          return rej(err);
+        }
+        return res(decoded.id);
+      });
+    });
   }
 }
