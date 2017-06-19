@@ -5,20 +5,22 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
+import { App } from './app';
+import { LoginStore } from './stores/login.store';
 import { UserStore } from './stores/user.store';
-import { Test } from './test/test';
 
 declare const module: any;
 
 const rootEl = document.getElementById('root');
 
 const userStore = UserStore.create();
+const loginStore = LoginStore.create();
 
 // tslint:disable-next-line:variable-name
 const render = (Component: React.ComponentClass<any>) => {
   return ReactDOM.render(
     <AppContainer>
-      <Provider userStore={userStore}>
+      <Provider userStore={userStore} loginStore={loginStore}>
         <Component />
       </Provider>
     </AppContainer>,
@@ -26,12 +28,12 @@ const render = (Component: React.ComponentClass<any>) => {
   );
 };
 
-render(Test);
+render(App);
 
 if (module.hot) {
   module.hot.accept(() => {
     // tslint:disable-next-line:variable-name
-    const NewTest = require('./test/test');
-    render(NewTest);
+    const NewApp = require('./app');
+    render(NewApp);
   });
 }

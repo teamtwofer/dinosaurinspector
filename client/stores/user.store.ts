@@ -18,19 +18,19 @@ export const UserStore = types.model(
     },
   },
   {
-    async loadUser() {
+    async loadUser(token: string) {
       this.isLoading = true;
-      const rawUser = await fetch('/api/user/1').then(r => r.json());
+      const rawUser = await fetch('/api/user', {
+        headers: {
+          'x-access-token': token,
+        },
+      }).then(r => r.json());
       this.updateUser(rawUser);
     },
 
     updateUser(rawUser: any) {
       this.user = rawUser;
       this.isLoading = false;
-    },
-
-    afterCreate() {
-      this.loadUser();
     },
   }
 );
