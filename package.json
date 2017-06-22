@@ -4,6 +4,7 @@
   "description": "A booking interface",
   "main": "index.js",
   "scripts": {
+    "start": "npm run server",
     "build": "webpack --config webpack.production.config.js",
     "server": "tsc --project tsconfig.server.json && npm run build && NODE_ENV=production node ./server",
     "server:dev": "NODE_ENV=development ts-node --project tsconfig.server.json ./server/index.ts",
