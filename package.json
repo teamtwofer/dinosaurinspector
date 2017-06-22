@@ -4,9 +4,9 @@
   "description": "A booking interface",
   "main": "index.js",
   "scripts": {
-    "start": "npm run server",
+    "start": "tsc --project tsconfig.server.json && npm run build",
     "build": "webpack --config webpack.production.config.js",
-    "server": "tsc --project tsconfig.server.json && npm run build && NODE_ENV=production node ./server",
+    "server": "npm run start && NODE_ENV=production node ./server",
     "server:dev": "NODE_ENV=development ts-node --project tsconfig.server.json ./server/index.ts",
     "server:watch": "nodemon",
     "lint": "tslint -t stylish \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
