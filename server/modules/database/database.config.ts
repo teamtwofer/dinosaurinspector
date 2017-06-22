@@ -7,15 +7,16 @@ export class DatabaseConfig {
   getConfiguration(): ConnectionOptions {
     const { env } = process;
     const isTesting = env.NODE_ENV === 'test';
+    const isProduction = env.NODE_ENV === 'production';
     return {
       autoSchemaSync: true,
       driver: {
         database: isTesting ? 'dinosaur_testing' : 'dinosaur_development',
-        host: 'localhost',
-        password: 'potato',
-        port: 5432,
+        host: process.env.DATABASE_URL || 'localhost',
+        password: isProduction ? undefined : 'potato',
+        port: isProduction ? undefined : 5432,
         type: isTesting ? 'sqlite' : 'postgres',
-        username: 'bbayard',
+        username: isProduction ? undefined : 'bbayard',
       },
       entities: [User],
       logging: {

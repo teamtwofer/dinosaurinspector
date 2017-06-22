@@ -2,6 +2,7 @@ import 'reflect-metadata';
 
 import { NestFactory } from '@nestjs/core';
 import bodyParser = require('body-parser');
+import compression = require('compression');
 import * as express from 'express';
 import * as morgan from 'morgan';
 import * as path from 'path';
@@ -13,6 +14,12 @@ const port = process.env.PORT || 3000;
 const publicPath = path.resolve(__dirname, '../public');
 
 const server = express();
+
+server.use(compression());
+server.use(morgan('dev'));
+server.use(express.static(publicPath));
+server.use(bodyParser.json());
+
 server.get('*', (req, res, next) => {
   const isHTMLRequest =
     !req.url.includes('api') &&
@@ -29,9 +36,6 @@ server.get('*', (req, res, next) => {
   }
   next('route');
 });
-server.use(morgan('dev'));
-server.use(express.static(publicPath));
-server.use(bodyParser.json());
 
 if (!isProduction) {
   bundle(server);
