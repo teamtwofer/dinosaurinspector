@@ -19,7 +19,15 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['.webpack.js', '.web.js', '.js', '.json', '.ts', '.tsx'],
+    extensions: [
+      '.webpack.js',
+      '.web.js',
+      '.js',
+      '.json',
+      '.ts',
+      '.tsx',
+      '.scss',
+    ],
   },
   module: {
     loaders: [
@@ -37,7 +45,11 @@ module.exports = {
           },
         ],
 
-        include: [path.resolve(__dirname, 'client')],
+        include: [
+          path.resolve(__dirname, 'client'),
+          path.resolve(__dirname, 'types'),
+          path.resolve(__dirname, 'lang'),
+        ],
         exclude: [nodeModulesPath],
       },
       {
@@ -48,6 +60,11 @@ module.exports = {
           },
           {
             loader: 'css-loader', // translates CSS into CommonJS
+            options: {
+              modules: true,
+              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              camelCase: true,
+            },
           },
           {
             loader: 'sass-loader', // compiles Sass to CSS

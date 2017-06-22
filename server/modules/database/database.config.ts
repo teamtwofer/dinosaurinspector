@@ -23,7 +23,6 @@ export class DatabaseConfig {
         logQueries: !isTesting,
       },
       name: `${Date.now()}`,
-      type: (isTesting ? 'sqlite' : 'postgres') as any, // this field isn't necessary, but TS complains without it
     };
   }
 }

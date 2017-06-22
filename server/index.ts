@@ -11,7 +11,18 @@ import { ApplicationModule } from './modules/application.module';
 const isProduction = process.env.NODE_ENV === 'production';
 const port = isProduction ? process.env.PORT : 3000;
 const publicPath = path.resolve(__dirname, 'public');
+
 const server = express();
+server.get('*', (req, _res, next) => {
+  if (
+    !req.url.includes('api') &&
+    !req.url.includes('.') &&
+    !req.url.includes('webpack')
+  ) {
+    req.url = '/';
+  }
+  next('route');
+});
 server.use(morgan('dev'));
 server.use(express.static(publicPath));
 server.use(bodyParser.json());

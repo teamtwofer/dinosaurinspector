@@ -13,8 +13,8 @@ declare const module: any;
 
 const rootEl = document.getElementById('root');
 
-const userStore = UserStore.create();
-const loginStore = LoginStore.create();
+const userStore = new UserStore();
+const loginStore = new LoginStore();
 
 // tslint:disable-next-line:variable-name
 const render = (Component: React.ComponentClass<any>) => {

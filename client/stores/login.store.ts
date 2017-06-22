@@ -1,60 +1,61 @@
-import { types } from 'mobx-state-tree';
+// import { types } from 'mobx-state-tree';
+import { FieldState, FormState } from 'formstate';
+import { action, computed, observable } from 'mobx';
+
 import { lang } from '../../lang';
 
 export function requiredValidator(fieldName) {
-  return val => !val && `${fieldName} is required`;
+  return val => !val && lang.REQUIRED_VALIDATOR(fieldName);
 }
 
-// tslint:disable-next-line:variable-name
-export const LoginStore = types.model(
-  'LoginStore',
-  {
-    email: '',
-    error: '',
-    isLoading: false,
-    password: '',
-  },
-  {
-    updateEmail(e: React.ChangeEvent<HTMLInputElement>) {
-      this.error = '';
-      this.email = e.target.value;
-    },
+export class LoginStore {
+  @observable email = new FieldState('').validators(requiredValidator('email'));
 
-    updatePassword(e: React.ChangeEvent<HTMLInputElement>) {
-      this.error = '';
-      this.password = e.target.value;
-    },
+  @observable
+  password = new FieldState('').validators(requiredValidator('password'));
 
-    updateError(error: string) {
-      this.error = error;
-    },
+  @observable
+  form = new FormState({ email: this.email, password: this.password });
 
-    async loginUser(): Promise<string | void> {
-      if (!this.email || !this.password) {
-        this.error = lang.EMAIL_AND_PASSWORD_ARE_REQUIRED();
-        return;
-      }
-      try {
-        const { email, password } = this;
-        const tokenOrError = await fetch('/api/user/token', {
-          body: JSON.stringify({ user: { email, password } }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-        }).then(r => r.json());
+  @observable error: string;
 
-        if (tokenOrError.message) {
-          this.updateError(tokenOrError.message);
-        }
+  @observable isLoading = false;
 
-        return tokenOrError.token;
-      } catch (e) {
-        this.updateError(e.message);
-      }
-      return;
-    },
+  @computed
+  get value() {
+    const { email: { $: email }, password: { $: password } } = this;
+    return { user: { email, password } };
   }
-);
 
-export type LoginStore = typeof LoginStore.Type;
+  @action.bound
+  updateError(error: string) {
+    this.error = error;
+  }
+
+  @action.bound
+  async loginUser(): Promise<string | void> {
+    const errors = await this.form.validate();
+    if (errors.hasError) {
+      this.updateError(this.form.error!);
+      return;
+    }
+    try {
+      const tokenOrError = await fetch('/api/user/token', {
+        body: JSON.stringify(this.value),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      }).then(r => r.json());
+
+      if (tokenOrError.message) {
+        this.updateError(tokenOrError.message);
+      }
+
+      return tokenOrError.token;
+    } catch (e) {
+      this.updateError(e.message);
+    }
+    return;
+  }
+}
