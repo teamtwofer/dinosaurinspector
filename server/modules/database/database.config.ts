@@ -23,6 +23,7 @@ export class DatabaseConfig {
         logQueries: !isTesting,
       },
       name: `${Date.now()}`,
+      type: (isTesting ? 'sqlite' : 'postgres') as any,
     };
   }
 }

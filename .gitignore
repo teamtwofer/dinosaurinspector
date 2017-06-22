@@ -65,6 +65,13 @@ server/**/*.js
 server/**/*.js.map
 client/**/*.js
 client/**/*.js.map
+lang/**/*.js
+lang/**/*.js.map
+types/**/*.js
+types/**/*.js.map
 
 # Database files
 dinosaur_testing
+
+# compiled JS for client
+public/build
