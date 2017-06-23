@@ -27,10 +27,14 @@ export class App extends React.PureComponent<Props, {}> {
 
 // tslint:disable-next-line:max-classes-per-file
 @inject('userStore')
+@observer
 export class AuthRoute extends React.PureComponent<Props, never> {
   render() {
     const { userStore, ...props } = this.props;
-    const { currentUser } = userStore!;
+    const { currentUser, isLoading } = userStore!;
+    if (isLoading) {
+      return null;
+    }
     if (currentUser) {
       return <Route {...props} />;
     } else {
