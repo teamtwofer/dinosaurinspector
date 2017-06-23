@@ -9,6 +9,7 @@ const mainPath = path.resolve(__dirname, 'client', 'entry.tsx');
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
+    'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=true',
     mainPath,
@@ -36,6 +37,9 @@ module.exports = {
         use: [
           {
             loader: 'react-hot-loader/webpack',
+          },
+          {
+            loader: 'babel-loader',
           },
           {
             loader: 'awesome-typescript-loader',

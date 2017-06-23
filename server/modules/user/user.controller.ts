@@ -26,12 +26,15 @@ export class UserController {
   }
 
   @Get('user')
-  async getUser(@Req() req, @Res() res: Response) {
+  async getUser(@Req() req: any, @Res() res: Response) {
     res.status(HttpStatus.OK).json(this.serializer.serializeFull(req.user));
   }
 
   @Post('user/token')
-  async generateToken(@Res() res, @Body('user') user: Partial<IRegisterUser>) {
+  async generateToken(
+    @Res() res: Response,
+    @Body('user') user: Partial<IRegisterUser>
+  ) {
     try {
       const token = await this.service.generateToken(user);
       res.status(HttpStatus.OK).json({ token });
@@ -41,7 +44,7 @@ export class UserController {
   }
 
   @Delete('user/:id')
-  async deleteUser(@Req() req, @Res() res: Response) {
+  async deleteUser(@Req() req: any, @Res() res: Response) {
     const { user } = req;
     const deletedUser = await this.service.remove(user);
     res.status(HttpStatus.OK).json(this.serializer.serializeFull(deletedUser));

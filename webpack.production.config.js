@@ -8,7 +8,8 @@ const buildPath = path.resolve(__dirname, 'public', 'build');
 const mainPath = path.resolve(__dirname, 'client', 'entry.tsx');
 
 module.exports = Object.assign({}, defaults, {
-  entry: mainPath,
+  entry: ['babel-polyfill', mainPath],
+  devtool: 'source-map',
   output: {
     path: defaults.output.path,
     filename: '[name].min.js',
@@ -18,16 +19,23 @@ module.exports = Object.assign({}, defaults, {
     loaders: [
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
-        options: {
-          configFileName: 'tsconfig.client.json',
-        },
         include: [
           path.resolve(__dirname, 'client'),
           path.resolve(__dirname, 'types'),
           path.resolve(__dirname, 'lang'),
         ],
         exclude: [nodeModulesPath],
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              configFileName: 'tsconfig.client.json',
+            },
+          },
+        ],
       },
       {
         test: /\.scss$/,
@@ -40,14 +48,10 @@ module.exports = Object.assign({}, defaults, {
                 modules: true,
                 localIdentName: '[local]--[hash:base64:5]',
                 camelCase: true,
-                sourceMap: true,
               },
             },
             {
               loader: 'sass-loader', // compiles Sass to CSS
-              options: {
-                sourceMap: true,
-              },
             },
           ],
         }),
@@ -60,6 +64,7 @@ module.exports = Object.assign({}, defaults, {
       output: {
         comments: false,
       },
+      sourceMap: true,
       compress: {
         warnings: false,
         screw_ie8: true,
