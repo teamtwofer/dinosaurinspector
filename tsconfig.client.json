@@ -4,12 +4,12 @@
         "module": "commonjs"
     },
     "exclude": [
-         "node_modules"
+        "node_modules"
     ],
     "include": [
         "./client/entry.tsx",
         "./client/**/*.ts?(x)"
-    ],    
+    ],
     "awesomeTypescriptLoaderOptions": {
         "useCache": true,
         "useBabel": true
