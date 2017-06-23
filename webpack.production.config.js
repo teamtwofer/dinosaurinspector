@@ -9,7 +9,7 @@ const mainPath = path.resolve(__dirname, 'client', 'entry.tsx');
 
 module.exports = Object.assign({}, defaults, {
   entry: ['babel-polyfill', mainPath],
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   output: {
     path: defaults.output.path,
     filename: '[name].min.js',
@@ -64,6 +64,7 @@ module.exports = Object.assign({}, defaults, {
       output: {
         comments: false,
       },
+      sourceMap: true,
       compress: {
         warnings: false,
         screw_ie8: true,
