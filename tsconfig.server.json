@@ -1,5 +1,14 @@
 {
+    "compilerOptions": {
+        "outDir": "serverBuild",
+        "noImplicitAny": false
+    },
     "extends": "./tsconfig",
+    "exclude": [
+        "./client/**/*.ts",
+        "./client/**/*.tsx",
+        "node_modules"
+    ],
     "filesGlob": [
         "./server/**/*.ts",
         "./types/**/*.ts",

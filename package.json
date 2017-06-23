@@ -1,12 +1,13 @@
 {
   "name": "dinosaurinspector",
   "version": "0.0.1",
-  "description": "A booking interface",
+  "description": "Project management software",
   "main": "index.js",
   "scripts": {
-    "start": "tsc --project tsconfig.server.json && npm run build",
+    "start": "npm run build:server && npm run build",
     "build": "webpack --config webpack.production.config.js",
-    "server": "npm run start && NODE_ENV=production node ./server",
+    "build:server": "tsc --project tsconfig.server.json",
+    "server": "npm run start && NODE_ENV=production node ./serverBuild/server",
     "server:dev": "NODE_ENV=development ts-node --project tsconfig.server.json ./server/index.ts",
     "server:watch": "nodemon",
     "lint": "tslint -t stylish \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
@@ -15,7 +16,7 @@
     "lint:fmt": "npm run lint:prettier && npm run lint:fix",
     "test": "jest"
   },
-  "author": "Urbandoor",
+  "author": "Team Twofer",
   "private": true,
   "engines": {
     "node": "^8.1.0",
