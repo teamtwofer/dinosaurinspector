@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "jsx":"react",
+    "jsx": "react",
     "declaration": false,
     "moduleResolution": "node",
     "strict": true,
-    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -17,6 +17,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "module": "commonjs"
-  }, 
-  "exclude": ["node_modules"]  
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

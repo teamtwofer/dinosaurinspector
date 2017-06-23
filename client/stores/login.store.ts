@@ -4,8 +4,8 @@ import { action, computed, observable } from 'mobx';
 
 import { lang } from '../../lang';
 
-export function requiredValidator(fieldName) {
-  return val => !val && lang.REQUIRED_VALIDATOR(fieldName);
+export function requiredValidator(fieldName: string) {
+  return (val: string) => !val && lang.REQUIRED_VALIDATOR(fieldName);
 }
 
 export class LoginStore {
