@@ -30,7 +30,6 @@ export class LoginStore {
   async loginUser(): Promise<string | void> {
     const errors = await this.form.validate();
     if (errors.hasError) {
-      this.updateError(this.form.error!);
       return;
     }
     try {

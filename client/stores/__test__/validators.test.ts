@@ -31,4 +31,15 @@ describe('Validators', () => {
       );
     });
   });
+
+  describe('required', () => {
+    const boundRequired = required('blah');
+    it('should allow any value', () => {
+      expect(boundRequired('blah')).toBe(false);
+    });
+
+    it('should not allow an empty value', () => {
+      expect(boundRequired('')).toBe(lang.REQUIRED_VALIDATOR('blah'));
+    });
+  });
 });

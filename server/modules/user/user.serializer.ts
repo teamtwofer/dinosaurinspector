@@ -7,4 +7,8 @@ export class UserSerializer {
   serializeFull({ email, id, name, createdAt, updatedAt }: User): IUser {
     return { email, id, name, createdAt, updatedAt: updatedAt || null };
   }
+
+  serializeTokenAndUser(user: User, token: string) {
+    return { token, user: this.serializeFull(user) };
+  }
 }

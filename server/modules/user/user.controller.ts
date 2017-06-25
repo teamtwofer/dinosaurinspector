@@ -35,9 +35,27 @@ export class UserController {
     @Res() res: Response,
     @Body('user') user: Partial<IRegisterUser>
   ) {
+    console.log('token\n\n\n', user);
     try {
       const token = await this.service.generateToken(user);
-      res.status(HttpStatus.OK).json({ token });
+      res.status(HttpStatus.CREATED).json({ token });
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_ACCEPTABLE);
+    }
+  }
+
+  @Post('user')
+  async addUser(@Req() req: any, @Res() res: Response, @Body('user') blah) {
+    const { user } = req.body;
+    console.log('\n\n\n', blah, '\n\n\n');
+    try {
+      const password = user.password;
+      const registeredUser = await this.service.add(user);
+      user.password = password;
+      const token = await this.service.generateToken(user);
+      res
+        .status(HttpStatus.CREATED)
+        .json(this.serializer.serializeTokenAndUser(registeredUser, token));
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_ACCEPTABLE);
     }

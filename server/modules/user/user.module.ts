@@ -16,7 +16,7 @@ export class UserModule {
     consumer
       .apply(AuthMiddleware)
       .forRoutes({
-        method: RequestMethod.ALL,
+        method: RequestMethod.GET,
         path: 'user',
       })
       .apply(AuthMiddleware)

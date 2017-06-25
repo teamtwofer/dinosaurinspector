@@ -6,6 +6,7 @@ import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
 import { App } from './app';
+import { CreateAccountStore } from './stores/create-account.store';
 import { LoginStore } from './stores/login.store';
 import { UserStore } from './stores/user.store';
 
@@ -15,12 +16,17 @@ const rootEl = document.getElementById('root');
 
 const userStore = new UserStore();
 const loginStore = new LoginStore();
+const createAccountStore = new CreateAccountStore();
 
 // tslint:disable-next-line:variable-name
 const render = (Component: React.ComponentClass<any>) => {
   return ReactDOM.render(
     <AppContainer>
-      <Provider userStore={userStore} loginStore={loginStore}>
+      <Provider
+        userStore={userStore}
+        loginStore={loginStore}
+        createAccountStore={createAccountStore}
+      >
         <Component />
       </Provider>
     </AppContainer>,
