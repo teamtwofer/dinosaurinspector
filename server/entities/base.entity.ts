@@ -1,10 +1,9 @@
 import {
   AbstractEntity,
-  BeforeUpdate,
-  Column,
   CreateDateColumn,
   Index,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @AbstractEntity()
@@ -15,12 +14,7 @@ export class Base {
   @Index()
   createdAt: Date;
 
-  @Column({ nullable: true })
+  @UpdateDateColumn({ nullable: true })
   @Index()
   updatedAt: Date;
-
-  @BeforeUpdate()
-  setUpdatedAt() {
-    this.updatedAt = new Date();
-  }
 }

@@ -9,10 +9,9 @@ export function minLength(fieldName: string, length: number) {
     val && val.length < length && lang.MIN_LENGTH_VALIDATOR(fieldName, length);
 }
 
+const emailRegex = /.+\@.+\..+/;
+
 export function email(fieldName: string) {
   return (val?: string) =>
-    val &&
-    !val.includes('@') &&
-    !val.includes('.') &&
-    lang.EMAIL_VALIDATOR(fieldName);
+    !!val && !val.match(emailRegex) && lang.EMAIL_VALIDATOR(fieldName);
 }

@@ -14,7 +14,8 @@
     "lint:fix": "npm run lint -- --fix",
     "lint:prettier": "prettier --single-quote --trailing-comma es5 --write \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
     "lint:fmt": "npm run lint:prettier && npm run lint:fix",
-    "test": "jest"
+    "test": "jest",
+    "test:update": "npm run test -- -u"
   },
   "author": "Team Twofer",
   "private": true,

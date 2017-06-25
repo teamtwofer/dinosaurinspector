@@ -26,6 +26,8 @@ describe('UserController', () => {
     }),
   } as any;
 
+  const realDate = new Date('June 1, 2016');
+
   beforeEach(async () => {
     Test.createTestingModule({
       components: [
@@ -48,6 +50,8 @@ describe('UserController', () => {
     jsonResonse = {};
     user = await controller.service.add(ben);
     ben.password = 'potato';
+    user.createdAt = realDate;
+    user.updatedAt = realDate;
     return;
   });
 
