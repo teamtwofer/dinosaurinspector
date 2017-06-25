@@ -4,7 +4,7 @@ import { User } from '../../entities/user.entity';
 
 @Component()
 export class UserSerializer {
-  serializeFull({ email, id, name }: User): IUser {
-    return { email, id, name };
+  serializeFull({ email, id, name, createdAt, updatedAt }: User): IUser {
+    return { email, id, name, createdAt, updatedAt: updatedAt || null };
   }
 }

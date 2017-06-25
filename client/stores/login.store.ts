@@ -1,18 +1,12 @@
 // import { types } from 'mobx-state-tree';
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
-
-import { lang } from '../../lang';
-
-export function requiredValidator(fieldName: string) {
-  return (val: string) => !val && lang.REQUIRED_VALIDATOR(fieldName);
-}
+import { required } from './validators';
 
 export class LoginStore {
-  @observable email = new FieldState('').validators(requiredValidator('email'));
+  @observable email = new FieldState('').validators(required('email'));
 
-  @observable
-  password = new FieldState('').validators(requiredValidator('password'));
+  @observable password = new FieldState('').validators(required('password'));
 
   @observable
   form = new FormState({ email: this.email, password: this.password });

@@ -1,12 +1,13 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index } from 'typeorm';
 import bcrypt = require('bcrypt');
 
 import { IRegisterUser, IUser } from '../../types/user';
+import { Base } from './base.entity';
 
 const SALT_ROUNDS = process.env.NODE_ENV === 'test' ? 1 : 12;
 
 @Entity()
-export class User implements IUser {
+export class User extends Base implements IUser {
   static async from(registerUser: IRegisterUser): Promise<User> {
     const user = new User(registerUser.name, registerUser.email);
     await user.setHashedPassword(registerUser.password);
@@ -17,8 +18,6 @@ export class User implements IUser {
     return user;
   }
 
-  @PrimaryGeneratedColumn() id: number;
-
   @Column()
   @Index({ unique: true })
   email: string;
@@ -28,6 +27,7 @@ export class User implements IUser {
   @Column('text') hashedPassword: string;
 
   constructor(name: string, email: string) {
+    super();
     this.name = name;
     this.email = email;
   }

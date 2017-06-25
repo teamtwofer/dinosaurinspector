@@ -2,16 +2,20 @@
 
 exports[`UserController DELETE /user/:id 1`] = `
 Object {
+  "createdAt": 2017-06-25T08:04:10.769Z,
   "email": "ben@twofer.co",
   "id": undefined,
   "name": "ben",
+  "updatedAt": null,
 }
 `;
 
 exports[`UserController GET /user/:id 1`] = `
 Object {
+  "createdAt": 2017-06-25T08:04:10.523Z,
   "email": "ben@twofer.co",
   "id": 1,
   "name": "ben",
+  "updatedAt": null,
 }
 `;

@@ -2,5 +2,9 @@
 export const enUS = {
   INVALID_EMAIL_OR_PASSWORD: () => 'Invalid email or password',
   REQUIRED_VALIDATOR: (name: string) => `${name} is required`,
+  MIN_LENGTH_VALIDATOR: (name: string, length: number) =>
+    `${name} must be at least ${length}`,
+  EMAIL_VALIDATOR: (name: string) =>
+    `${name} must contain an AT sign and a PERIOD`,
 };
 // tslint:enable:object-literal-sort-keys
