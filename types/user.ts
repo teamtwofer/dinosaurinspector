@@ -11,3 +11,7 @@ export interface IRegisterUser {
   name: string;
   password: string;
 }
+
+export interface IForgotUser {
+  email: string;
+}

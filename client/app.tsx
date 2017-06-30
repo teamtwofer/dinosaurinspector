@@ -4,11 +4,10 @@ import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 
 import { autobind } from 'core-decorators';
 import { RouteProps } from 'react-router';
-import { CreateAccountContainer } from './components/containers/CreateAccountContainer';
-import { LoginContainer } from './components/containers/LoginContainer';
+import { AccountContainer } from './components/containers/AccountContainer';
 import { UserStore } from './stores/user.store';
 import { Test } from './test/test';
-import { createAccount, index, login } from './urls';
+import { account, index, login } from './urls';
 
 export interface Props extends RouteProps {
   userStore?: UserStore;
@@ -21,12 +20,7 @@ export class App extends React.PureComponent<Props, {}> {
       <Router>
         <main>
           <AuthRoute exact path={index()} component={Test} />
-          <Route exact path={login()} component={LoginContainer} />
-          <Route
-            exact
-            path={createAccount()}
-            component={CreateAccountContainer}
-          />
+          <Route path={account()} component={AccountContainer} />
         </main>
       </Router>
     );
@@ -48,7 +42,7 @@ export class AuthRoute extends React.PureComponent<Props, never> {
     if (currentUser) {
       return React.createElement(Component as any, props, null);
     } else {
-      return <Redirect to="/login" />;
+      return <Redirect to={login()} />;
     }
   }
   render() {

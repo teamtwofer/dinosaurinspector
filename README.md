@@ -51,6 +51,9 @@ We use sqlite for testing and we use postgres for development.
 Ensure you create the table in postgres (dinosaur_development)
 and create a user `bbayard` with a password `potato`.
 
+#### Add uuid extension
+`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+
 ## Client stuff
 
 ### Components

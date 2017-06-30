@@ -1,5 +1,6 @@
 import { Component } from '@nestjs/common';
 import { ConnectionOptions } from 'typeorm';
+import { ForgotPassword } from '../../entities/forgot-password.entity';
 import { User } from '../../entities/user.entity';
 
 @Component()
@@ -18,7 +19,7 @@ export class DatabaseConfig {
         type: isTesting ? 'sqlite' : 'postgres',
         username: isProduction ? undefined : 'bbayard',
       },
-      entities: [User],
+      entities: [User, ForgotPassword],
       logging: {
         logFailedQueryError: !isTesting,
         logQueries: !isTesting,

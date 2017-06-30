@@ -7,6 +7,7 @@ import { AppContainer } from 'react-hot-loader';
 
 import { App } from './app';
 import { CreateAccountStore } from './stores/create-account.store';
+import { ForgotPasswordStore } from './stores/forgot-password.store';
 import { LoginStore } from './stores/login.store';
 import { UserStore } from './stores/user.store';
 
@@ -17,6 +18,7 @@ const rootEl = document.getElementById('root');
 const userStore = new UserStore();
 const loginStore = new LoginStore();
 const createAccountStore = new CreateAccountStore();
+const forgotPasswordStore = new ForgotPasswordStore();
 
 // tslint:disable-next-line:variable-name
 const render = (Component: React.ComponentClass<any>) => {
@@ -26,6 +28,7 @@ const render = (Component: React.ComponentClass<any>) => {
         userStore={userStore}
         loginStore={loginStore}
         createAccountStore={createAccountStore}
+        forgotPasswordStore={forgotPasswordStore}
       >
         <Component />
       </Provider>

@@ -6,14 +6,20 @@ import bcrypt = require('bcrypt');
 
 import { lang } from '../../../lang';
 import { ICrud } from '../../../types/crud';
-import { IRegisterUser } from '../../../types/user';
+import { IForgotUser, IRegisterUser } from '../../../types/user';
 import { User } from '../../entities/user.entity';
 import key from '../../entities/user.key';
 import { DatabaseService } from '../database/database.service';
+import { EmailService } from '../email/email.service';
+import { ForgotPasswordService } from '../forgot-password/forgot-password.service';
 
 @Component()
 export class UserService implements ICrud<User, IRegisterUser> {
-  constructor(public databaseService: DatabaseService) {
+  constructor(
+    public databaseService: DatabaseService,
+    public forgotPasswordService: ForgotPasswordService,
+    public emailService: EmailService
+  ) {
     if (process.env.NODE_ENV === 'development') {
       this.seed();
     }
@@ -69,6 +75,33 @@ export class UserService implements ICrud<User, IRegisterUser> {
   @autobind
   async remove(user: User) {
     return (await this.repository).remove(user);
+  }
+
+  @autobind
+  async forgotPassword(user: IForgotUser) {
+    if (user && user.email) {
+      const realUser = await (await this.repository).findOne({
+        email: user.email,
+      });
+      if (realUser) {
+        const forgotPassword = await this.forgotPasswordService.add();
+        this.emailService.sendMail(
+          realUser,
+          '0512eeea-c584-4943-bc1e-13935effeb32',
+          {
+            '-name-': realUser.name,
+            '-url-':
+              'https://twofer.co/acount/recover-password/' + forgotPassword.id,
+          }
+        );
+        return; // send email
+      } else {
+        // log that this happened?
+        return; // maybe send email to account with message
+        // hey someone is trying to access your account here
+        // even though you don't have one. With us.
+      }
+    }
   }
 
   @autobind

@@ -1,17 +1,16 @@
 import {
-  Body,
   Controller,
   Delete,
   Get,
   HttpStatus,
   Post,
-  Req,
-  Res,
+  Request,
+  Response,
 } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
-import { Response } from 'express';
+import * as express from 'express';
 
-import { IRegisterUser } from '../../../types/user';
+// import { IRegisterUser } from '../../../types/user';
 import { UserSerializer } from './user.serializer';
 import { UserService } from './user.service';
 
@@ -26,16 +25,13 @@ export class UserController {
   }
 
   @Get('user')
-  async getUser(@Req() req: any, @Res() res: Response) {
+  async getUser(@Request() req: any, @Response() res: express.Response) {
     res.status(HttpStatus.OK).json(this.serializer.serializeFull(req.user));
   }
 
   @Post('user/token')
-  async generateToken(
-    @Res() res: Response,
-    @Body('user') user: Partial<IRegisterUser>
-  ) {
-    console.log('token\n\n\n', user);
+  async generateToken(@Request() req: any, @Response() res: express.Response) {
+    const { user } = req.body;
     try {
       const token = await this.service.generateToken(user);
       res.status(HttpStatus.CREATED).json({ token });
@@ -45,9 +41,8 @@ export class UserController {
   }
 
   @Post('user')
-  async addUser(@Req() req: any, @Res() res: Response, @Body('user') blah) {
+  async addUser(@Request() req: any, @Response() res: express.Response) {
     const { user } = req.body;
-    console.log('\n\n\n', blah, '\n\n\n');
     try {
       const password = user.password;
       const registeredUser = await this.service.add(user);
@@ -61,8 +56,19 @@ export class UserController {
     }
   }
 
+  @Post('user/forgot-password')
+  async forgotPassword(@Request() req: any, @Response() res: express.Response) {
+    const { user } = req.body;
+    try {
+      await this.service.forgotPassword(user);
+      res.status(HttpStatus.ACCEPTED).send();
+    } catch (e) {
+      throw new HttpException(e.message, HttpStatus.NOT_ACCEPTABLE);
+    }
+  }
+
   @Delete('user/:id')
-  async deleteUser(@Req() req: any, @Res() res: Response) {
+  async deleteUser(@Request() req: any, @Response() res: express.Response) {
     const { user } = req;
     const deletedUser = await this.service.remove(user);
     res.status(HttpStatus.OK).json(this.serializer.serializeFull(deletedUser));
