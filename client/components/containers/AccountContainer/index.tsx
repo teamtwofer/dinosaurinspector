@@ -1,10 +1,16 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import { Route, RouteComponentProps } from 'react-router';
-import { createAccount, forgotPassword, login } from '../../../urls';
+import {
+  createAccount,
+  forgotPassword,
+  login,
+  recoverPassword,
+} from '../../../urls';
 import { CreateAccountContainer } from '../CreateAccountContainer';
 import { ForgotPasswordContainer } from '../ForgotPasswordContainer';
 import { LoginContainer } from '../LoginContainer';
+import { RecoverPasswordContainer } from '../RecoverPasswordContainer';
 
 @observer
 export class AccountContainer extends React.PureComponent<Props, {}> {
@@ -21,6 +27,11 @@ export class AccountContainer extends React.PureComponent<Props, {}> {
           exact
           path={forgotPassword()}
           component={ForgotPasswordContainer}
+        />
+        <Route
+          exact
+          path={recoverPassword()}
+          component={RecoverPasswordContainer}
         />
       </div>
     );

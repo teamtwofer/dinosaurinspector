@@ -53,5 +53,5 @@ function ForgotPassword() {
 }
 
 export interface Props {
-  match: match<void>;
+  match: match<any>;
 }

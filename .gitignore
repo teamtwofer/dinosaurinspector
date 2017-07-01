@@ -76,3 +76,6 @@ dinosaur_testing
 
 # compiled JS for client
 public/build
+
+# code coverage
+coverage

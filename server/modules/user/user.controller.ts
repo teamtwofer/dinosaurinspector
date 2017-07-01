@@ -3,6 +3,7 @@ import {
   Delete,
   Get,
   HttpStatus,
+  Patch,
   Post,
   Request,
   Response,
@@ -11,6 +12,7 @@ import { HttpException } from '@nestjs/core';
 import * as express from 'express';
 
 // import { IRegisterUser } from '../../../types/user';
+import { ForgotPasswordService } from '../forgot-password/forgot-password.service';
 import { UserSerializer } from './user.serializer';
 import { UserService } from './user.service';
 
@@ -19,7 +21,11 @@ export class UserController {
   service: UserService;
   private serializer: UserSerializer;
 
-  constructor(userService: UserService, userSerializer: UserSerializer) {
+  constructor(
+    userService: UserService,
+    userSerializer: UserSerializer,
+    private forgotPasswordService: ForgotPasswordService
+  ) {
     this.service = userService;
     this.serializer = userSerializer;
   }
@@ -65,6 +71,27 @@ export class UserController {
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.NOT_ACCEPTABLE);
     }
+  }
+
+  @Patch('user/recover-password/:forgotPasswordId')
+  async recoverPassword(
+    @Request() req: any,
+    @Response() res: express.Response
+  ) {
+    const { forgotPasswordId } = req.params;
+    const { user: { password } } = req.body;
+    const forgottenPassword = await this.forgotPasswordService.get(
+      forgotPasswordId
+    );
+    if (!forgottenPassword) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+
+    const { user } = forgottenPassword;
+    await user.setHashedPassword(password);
+    await this.service.update(user);
+    res.status(HttpStatus.ACCEPTED).json(this.serializer.serializeFull(user));
+    await this.forgotPasswordService.delete(forgotPasswordId);
   }
 
   @Delete('user/:id')

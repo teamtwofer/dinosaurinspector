@@ -9,6 +9,7 @@ import { App } from './app';
 import { CreateAccountStore } from './stores/create-account.store';
 import { ForgotPasswordStore } from './stores/forgot-password.store';
 import { LoginStore } from './stores/login.store';
+import { RecoverPasswordStore } from './stores/recover-password.store';
 import { UserStore } from './stores/user.store';
 
 declare const module: any;
@@ -19,6 +20,7 @@ const userStore = new UserStore();
 const loginStore = new LoginStore();
 const createAccountStore = new CreateAccountStore();
 const forgotPasswordStore = new ForgotPasswordStore();
+const recoverPasswordStore = new RecoverPasswordStore();
 
 // tslint:disable-next-line:variable-name
 const render = (Component: React.ComponentClass<any>) => {
@@ -29,6 +31,7 @@ const render = (Component: React.ComponentClass<any>) => {
         loginStore={loginStore}
         createAccountStore={createAccountStore}
         forgotPasswordStore={forgotPasswordStore}
+        recoverPasswordStore={recoverPasswordStore}
       >
         <Component />
       </Provider>

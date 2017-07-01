@@ -76,7 +76,7 @@ describe('UserController', () => {
   });
 
   it('GET /user/token', async () => {
-    await controller.generateToken(response, ben);
+    await controller.generateToken({ body: { user: ben } }, response);
     expect((jsonResonse as any).token).toBeDefined();
   });
 

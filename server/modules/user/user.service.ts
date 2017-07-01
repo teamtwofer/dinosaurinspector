@@ -83,7 +83,7 @@ export class UserService implements ICrud<User, IRegisterUser> {
         email: user.email,
       });
       if (realUser) {
-        const forgotPassword = await this.forgotPasswordService.add();
+        const forgotPassword = await this.forgotPasswordService.add(realUser);
         this.emailService.sendMail(
           realUser,
           '0512eeea-c584-4943-bc1e-13935effeb32',

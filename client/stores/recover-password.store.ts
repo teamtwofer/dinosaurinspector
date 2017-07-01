@@ -2,10 +2,13 @@ import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
 import { IForm } from '../../types/form';
 import { IRegisterUser, IUser } from '../../types/user';
+import { patch } from '../utils/api';
 import { matchValue, minLength, required } from './validators';
 
 export class RecoverPasswordStore
   implements IForm<{ user: Pick<IRegisterUser, 'password'> }> {
+  @observable isLoading = false;
+
   @observable
   password = new FieldState('').validators(
     required('password'),
@@ -32,28 +35,42 @@ export class RecoverPasswordStore
   }
 
   @action.bound
-  async create(): Promise<{ user: IUser; token: string } | void> {
+  stopLoading() {
+    this.isLoading = false;
+  }
+
+  @action.bound
+  startLoading() {
+    this.isLoading = true;
+  }
+
+  @action.bound
+  async create(id: string): Promise<{ user: IUser; token: string } | void> {
+    this.startLoading();
     const errors = await this.form.validate();
     if (errors.hasError) {
+      this.stopLoading();
       return;
     }
 
     try {
-      const userAndTokenOrError = await fetch('/api/user', {
-        body: JSON.stringify(this.value),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-      }).then(r => r.json());
+      const userOrError = await patch(
+        `/api/user/recover-password/${id}`,
+        this.value
+      );
 
-      if (userAndTokenOrError.message) {
-        this.updateError(userAndTokenOrError.message);
+      this.stopLoading();
+
+      if (userOrError.message) {
+        this.updateError(userOrError.message);
+        return;
       }
 
-      return userAndTokenOrError;
+      return userOrError;
     } catch (e) {
+      this.stopLoading();
       this.updateError(e);
+      return;
     }
   }
 
