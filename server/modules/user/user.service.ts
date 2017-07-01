@@ -3,7 +3,6 @@ import { autobind } from 'core-decorators';
 import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
 import bcrypt = require('bcrypt');
-
 import { lang } from '../../../lang';
 import { ICrud } from '../../../types/crud';
 import { IForgotUser, IRegisterUser } from '../../../types/user';

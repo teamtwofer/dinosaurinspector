@@ -16,7 +16,7 @@ export class DatabaseConfig {
         host: process.env.DATABASE_URL || 'localhost',
         password: isProduction ? undefined : 'potato',
         port: isProduction ? undefined : 5432,
-        type: isTesting ? 'sqlite' : 'postgres',
+        type: 'postgres',
         username: isProduction ? undefined : 'bbayard',
       },
       entities: [User, ForgotPassword],
@@ -25,7 +25,7 @@ export class DatabaseConfig {
         logQueries: !isTesting,
       },
       name: `${Date.now()}`,
-      type: (isTesting ? 'sqlite' : 'postgres') as any,
+      type: 'postgres' as any,
     };
   }
 }

@@ -29,7 +29,9 @@ export class ForgotPasswordContainer extends React.PureComponent<Props, any> {
         <AccountHeading match={match} />
         {lang.EXPLAIN_FORGOT_PASSWORD()}
         <Input field={email} name="email" type="email" />
-        <button type="submit" onClick={this.createAccount}>Login</button>
+        <button type="submit" onClick={this.createAccount}>
+          {lang.SEND_RECOVERY_EMAIL()}
+        </button>
         <CallToAction match={match} />
       </div>
     );

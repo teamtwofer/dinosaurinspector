@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import { Route, RouteComponentProps } from 'react-router';
-
 import { createAccount, forgotPassword, login } from '../../../urls';
-
 import { CreateAccountContainer } from '../CreateAccountContainer';
 import { ForgotPasswordContainer } from '../ForgotPasswordContainer';
 import { LoginContainer } from '../LoginContainer';

@@ -24,5 +24,6 @@ export const enUS = {
     Your password will not be reset until you fill out the form
     on the corresponding page.
   `,
+  SEND_RECOVERY_EMAIL: () => 'Send Recovery Email',
 };
 // tslint:enable:object-literal-sort-keys

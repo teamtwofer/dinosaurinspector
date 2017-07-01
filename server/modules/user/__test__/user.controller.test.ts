@@ -2,11 +2,15 @@ import 'reflect-metadata';
 
 import { Test } from '@nestjs/testing';
 import { Response } from 'express';
-
 import { IRegisterUser } from '../../../../types/user';
 import { User } from '../../../entities/user.entity';
+import { DatabaseModule } from '../..//database/database.module';
 import { DatabaseConfig } from '../../database/database.config';
 import { DatabaseService } from '../../database/database.service';
+import { EmailModule } from '../../email/email.module';
+import { EmailService } from '../../email/email.service';
+import { ForgotPasswordModule } from '../../forgot-password/forgot-password.module';
+import { ForgotPasswordService } from '../../forgot-password/forgot-password.service';
 import { UserController } from '../user.controller';
 import { UserSerializer } from '../user.serializer';
 import { UserService } from '../user.service';
@@ -32,11 +36,13 @@ describe('UserController', () => {
     Test.createTestingModule({
       components: [
         UserService,
-        UserSerializer,
         DatabaseConfig,
-        DatabaseService,
+        UserSerializer,
+        ForgotPasswordService,
+        EmailService,
       ],
       controllers: [UserController],
+      modules: [DatabaseModule, ForgotPasswordModule, EmailModule],
     });
 
     ben = {

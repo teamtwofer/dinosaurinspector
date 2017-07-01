@@ -1,7 +1,6 @@
 import { Component } from '@nestjs/common';
 import { autobind } from 'core-decorators';
 import { Repository } from 'typeorm';
-
 import { ForgotPassword } from '../../entities/forgot-password.entity';
 import { DatabaseService } from '../database/database.service';
 

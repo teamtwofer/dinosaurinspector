@@ -47,12 +47,14 @@ I use VSCode and here is the configuration I use:
 For the server we are using two typescript built libraries, nestjs and typeorm. 
 
 ### Database
-We use sqlite for testing and we use postgres for development. 
-Ensure you create the table in postgres (dinosaur_development)
-and create a user `bbayard` with a password `potato`.
+We use postgresql for all our environments.
+Ensure you create these tables in postgres locally (dinosaur_development dinosaur_testing)
+and create a user `bbayard` with a password `potato`. <-- should probably change this
 
 #### Add uuid extension
+Run:
 `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+in both the testing and development databases.
 
 ## Client stuff
 

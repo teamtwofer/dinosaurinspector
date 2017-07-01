@@ -2,6 +2,7 @@ import { Express } from 'express';
 import * as webpack from 'webpack';
 import * as wepackDevMiddleware from 'webpack-dev-middleware';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
+
 // tslint:disable-next-line:no-var-requires
 const config: any = require('../webpack.development.config');
 
