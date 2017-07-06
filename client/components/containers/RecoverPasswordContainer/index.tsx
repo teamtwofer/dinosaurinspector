@@ -41,7 +41,10 @@ export class RecoverPasswordContainer extends React.PureComponent<Props, {}> {
           name="confirm password"
           type="password"
         />
-        {error && <p>{error}</p>}
+        {error &&
+          <p>
+            {error}
+          </p>}
         <button type="submit" disabled={isLoading} onClick={this.createAccount}>
           Login
         </button>

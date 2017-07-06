@@ -1,53 +1,26 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended",
-        "tslint-react"
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-react"],
+  "jsRules": {},
+  "rules": {
+    "quotemark": [true, "single", "jsx-double"],
+    "align": [
+      true,
+      "parameters",
+      "statements",
+      "arguments",
+      "elements",
+      "members"
     ],
-    "jsRules": {},
-    "rules": {
-        "quotemark": [
-            true,
-            "single",
-            "jsx-double"
-        ],
-        "align": [
-            true,
-            "parameters",
-            "statements",
-            "arguments",
-            "elements",
-            "members"
-        ],
-        "member-access": [
-            true,
-            "no-public"
-        ],
-        "variable-name": [
-            true,
-            "allow-leading-underscore"
-        ],
-        "jsx-boolean-value": [
-            true,
-            "never"
-        ],
-        "no-empty-interface": false,
-        "arrow-parens": [
-            true,
-            "ban-single-arg-parens"
-        ],
-        "trailing-comma": [
-            false
-        ],
-        "interface-name": [
-            false
-        ],
-        "quotemark": [
-            true,
-            "single",
-            "avoid-escape",
-            "jsx-double"
-        ]
-    },
-    "rulesDirectory": []
+    "member-access": [true, "no-public"],
+    "variable-name": [true, "allow-leading-underscore"],
+    "jsx-boolean-value": [true, "never"],
+    "jsx-no-multiline-js": false,
+    "no-empty-interface": false,
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "trailing-comma": [false],
+    "interface-name": [false],
+    "quotemark": [true, "single", "avoid-escape", "jsx-double"]
+  },
+  "rulesDirectory": []
 }

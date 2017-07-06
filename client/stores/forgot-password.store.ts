@@ -2,7 +2,7 @@ import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
 import { IForgotUser, IUser } from '../../types/user';
 import { post } from '../utils/api';
-import { email, minLength, required } from './validators';
+import { email as emailValidator, minLength, required } from './validators';
 export class ForgotPasswordStore {
   @observable
   name = new FieldState('').validators(required('name'), minLength('name', 4));
@@ -11,7 +11,7 @@ export class ForgotPasswordStore {
   email = new FieldState('').validators(
     required('email'),
     minLength('email', 5),
-    email('email')
+    emailValidator('email')
   );
 
   @observable error: string;

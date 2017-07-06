@@ -36,8 +36,13 @@ export class CreateAccountContainer extends React.PureComponent<Props, {}> {
           name="confirm password"
           type="password"
         />
-        {error && <p>{error}</p>}
-        <button type="submit" onClick={this.createAccount}>Login</button>
+        {error &&
+          <p>
+            {error}
+          </p>}
+        <button type="submit" onClick={this.createAccount}>
+          Login
+        </button>
         <CallToAction match={match} />
       </form>
     );

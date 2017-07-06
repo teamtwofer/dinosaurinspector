@@ -27,7 +27,9 @@ export class Input extends React.PureComponent<Props, never> {
     const { name, field, type, ...rest } = this.props;
     return (
       <div>
-        <label className={classes.label} htmlFor={name}>{name}</label>
+        <label className={classes.label} htmlFor={name}>
+          {name}
+        </label>
         <input
           {...rest}
           type={type}
@@ -37,7 +39,10 @@ export class Input extends React.PureComponent<Props, never> {
           value={field.value}
           className={field.hasError && classes.error}
         />
-        {field.hasError && <p>{field.error}</p>}
+        {field.hasError &&
+          <p>
+            {field.error}
+          </p>}
       </div>
     );
   }

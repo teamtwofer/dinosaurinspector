@@ -1,7 +1,12 @@
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
 import { IRegisterUser, IUser } from '../../types/user';
-import { email, matchValue, minLength, required } from './validators';
+import {
+  email as emailValidator,
+  matchValue,
+  minLength,
+  required,
+} from './validators';
 
 export class CreateAccountStore {
   @observable
@@ -11,7 +16,7 @@ export class CreateAccountStore {
   email = new FieldState('').validators(
     required('email'),
     minLength('email', 5),
-    email('email')
+    emailValidator('email')
   );
 
   @observable

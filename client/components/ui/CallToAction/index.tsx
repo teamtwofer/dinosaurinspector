@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { match } from 'react-router';
+import { match as RRmatch } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { lang } from '../../../../lang';
@@ -53,5 +53,5 @@ function ForgotPassword() {
 }
 
 export interface Props {
-  match: match<any>;
+  match: RRmatch<any>;
 }

@@ -12,7 +12,7 @@
     "server:watch": "nodemon",
     "lint": "tslint -t stylish \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
     "lint:fix": "npm run lint -- --fix",
-    "lint:prettier": "prettier --single-quote --trailing-comma es5 --write \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
+    "lint:prettier": "prettier --single-quote --no-bracket-spacing=false --trailing-comma=es5 --write \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
     "lint:fmt": "npm run lint:prettier && npm run lint:fix",
     "test": "jest",
     "test:update": "npm run test -- -u"
@@ -88,6 +88,7 @@
     "ts-node": "^3.0.6",
     "tslint": "^5.5.0",
     "tslint-react": "^3.0.0",
+    "tsutils": "^2.5.1",
     "typedi": "^0.5.2",
     "typeorm": "0.1.0-alpha.19",
     "typescript": "^2.3.4",
@@ -100,16 +101,9 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "unmockedModulePathPatterns": [
-      "react"
-    ],
+    "unmockedModulePathPatterns": ["react"],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
