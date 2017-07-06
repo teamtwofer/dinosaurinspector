@@ -1,8 +1,10 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
   HttpStatus,
+  Param,
   Patch,
   Post,
   Request,
@@ -11,7 +13,7 @@ import {
 import { HttpException } from '@nestjs/core';
 import * as express from 'express';
 
-// import { IRegisterUser } from '../../../types/user';
+import { IForgotUser, IRegisterUser } from '../../../types/user';
 import { ForgotPasswordService } from '../forgot-password/forgot-password.service';
 import { UserSerializer } from './user.serializer';
 import { UserService } from './user.service';
@@ -36,8 +38,10 @@ export class UserController {
   }
 
   @Post('user/token')
-  async generateToken(@Request() req: any, @Response() res: express.Response) {
-    const { user } = req.body;
+  async generateToken(
+    @Response() res: express.Response,
+    @Body('user') user: any
+  ) {
     try {
       const token = await this.service.generateToken(user);
       res.status(HttpStatus.CREATED).json({ token });
@@ -47,8 +51,10 @@ export class UserController {
   }
 
   @Post('user')
-  async addUser(@Request() req: any, @Response() res: express.Response) {
-    const { user } = req.body;
+  async addUser(
+    @Response() res: express.Response,
+    @Body('user') user: IRegisterUser
+  ) {
     try {
       const password = user.password;
       const registeredUser = await this.service.add(user);
@@ -63,8 +69,10 @@ export class UserController {
   }
 
   @Post('user/forgot-password')
-  async forgotPassword(@Request() req: any, @Response() res: express.Response) {
-    const { user } = req.body;
+  async forgotPassword(
+    @Response() res: express.Response,
+    @Body('user') user: IForgotUser
+  ) {
     try {
       await this.service.forgotPassword(user);
       res.status(HttpStatus.ACCEPTED).send();
@@ -75,11 +83,11 @@ export class UserController {
 
   @Patch('user/recover-password/:forgotPasswordId')
   async recoverPassword(
-    @Request() req: any,
-    @Response() res: express.Response
+    @Response() res: express.Response,
+    @Param('forgotPasswordId') forgotPasswordId: string,
+    @Body('user') forgotUser: Pick<IRegisterUser, 'password'>
   ) {
-    const { forgotPasswordId } = req.params;
-    const { user: { password } } = req.body;
+    const { password } = forgotUser;
     const forgottenPassword = await this.forgotPasswordService.get(
       forgotPasswordId
     );
