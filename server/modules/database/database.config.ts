@@ -2,22 +2,24 @@ import { Component } from '@nestjs/common';
 import { ConnectionOptions } from 'typeorm';
 import { ForgotPassword } from '../../entities/forgot-password.entity';
 import { User } from '../../entities/user.entity';
+import PG = require('pg-connection-string');
 
 @Component()
 export class DatabaseConfig {
   getConfiguration(): ConnectionOptions {
     const { env } = process;
     const isTesting = env.NODE_ENV === 'test';
-    const isProduction = env.NODE_ENV === 'production';
+    const useOptions = !!process.env.DATABASE_URL;
+    const options = PG.parse(process.env.DATABASE_URL);
     return {
       autoSchemaSync: true,
       driver: {
         database: isTesting ? 'dinosaur_testing' : 'dinosaur_development',
-        host: process.env.DATABASE_URL || 'localhost',
-        password: isProduction ? undefined : 'potato',
-        port: isProduction ? undefined : 5432,
+        host: useOptions ? options.host! : 'localhost',
+        password: useOptions ? options.password! : 'potato',
+        port: useOptions ? options.port! : 5432,
         type: 'postgres',
-        username: isProduction ? undefined : 'bbayard',
+        username: useOptions ? options.user! : 'bbayard',
       },
       entities: [User, ForgotPassword],
       logging: {
