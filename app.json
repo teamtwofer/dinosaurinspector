@@ -1,9 +1,27 @@
 {
+  "name": "dinosaurinspector",
+  "scripts": {},
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "formation": {},
+  "addons": ["heroku-postgresql"],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-sprettur"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
   "environments": {
     "test": {
       "scripts": {
         "test-setup": "npm install",
         "test": "npm run lint && npm run test"
+      },
+      "env": {
+        "NODE_ENV": "test"
       },
       "addons": ["heroku-postgresql:hobby-dev"]
     }
