@@ -8,9 +8,6 @@
   "addons": ["heroku-postgresql"],
   "buildpacks": [
     {
-      "url": "https://github.com/heroku/heroku-buildpack-sprettur"
-    },
-    {
       "url": "heroku/nodejs"
     }
   ],
