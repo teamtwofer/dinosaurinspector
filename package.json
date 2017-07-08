@@ -11,8 +11,10 @@
     "server:dev": "NODE_ENV=development ts-node --project tsconfig.server.json ./server/index.ts",
     "server:watch": "nodemon",
     "lint": "tslint -t stylish \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
+    "lint:ci": "npm run lint && npm run lint:prettier:list",
     "lint:fix": "npm run lint -- --fix",
-    "lint:prettier": "prettier --single-quote --no-bracket-spacing=false --trailing-comma=es5 --write \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
+    "lint:prettier": "prettier --single-quote --trailing-comma=es5 --write \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
+    "lint:prettier:list": "prettier --single-quote --trailing-comma=es5 -l \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
     "lint:fmt": "npm run lint:prettier && npm run lint:fix",
     "test": "jest",
     "test:update": "npm run test -- -u"
@@ -102,16 +104,9 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "unmockedModulePathPatterns": [
-      "react"
-    ],
+    "unmockedModulePathPatterns": ["react"],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
