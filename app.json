@@ -1,0 +1,26 @@
+{
+  "name": "dinosaurinspector",
+  "scripts": {},
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "formation": {},
+  "addons": ["heroku-postgresql"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "psql $DATABASE_URL -f init.sql",
+        "test": "npm run lint && npm run test"
+      },
+      "env": {
+        "NODE_ENV": "test"
+      },
+      "addons": ["heroku-postgresql:hobby-dev"]
+    }
+  }
+}
