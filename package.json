@@ -6,7 +6,7 @@
   "scripts": {
     "start": "psql $DATABASE_URL -f init.sql; npm run build:server && npm run build",
     "build": "webpack --config webpack.production.config.js",
-    "build:server": "tsc --project tsconfig.server.json",
+    "build:server": "tsc --project tsconfig.server.json && cp -r public serverBuild",
     "server": "npm run start && NODE_ENV=production node ./serverBuild/server",
     "server:dev": "NODE_ENV=development ts-node --project tsconfig.server.json ./server/index.ts",
     "server:watch": "nodemon",
