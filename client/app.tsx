@@ -13,6 +13,10 @@ export interface Props extends RouteProps {
   userStore?: UserStore;
 }
 
+export interface LoadingProps extends Props {
+  props: any;
+}
+
 @observer
 export class App extends React.PureComponent<Props, {}> {
   render() {
@@ -50,7 +54,7 @@ export class AuthRoute extends React.Component<Props, never> {
 // tslint:disable-next-line:max-classes-per-file
 @inject('userStore')
 @observer
-class LoadingRoute extends React.PureComponent<any, object> {
+class LoadingRoute extends React.PureComponent<LoadingProps, object> {
   render() {
     // tslint:disable-next-line:variable-name
     const { userStore, component: Component, props } = this.props;
