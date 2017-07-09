@@ -4,9 +4,9 @@
   "description": "Project management software",
   "main": "index.js",
   "scripts": {
-    "start": "psql $DATABASE_URL -f init.sql; npm run build:server && npm run build",
+    "start": "psql $DATABASE_URL -f init.sql; npm run build:server && npm run build && cp -r public serverBuild",
     "build": "webpack --config webpack.production.config.js",
-    "build:server": "tsc --project tsconfig.server.json && cp -r public serverBuild",
+    "build:server": "tsc --project tsconfig.server.json",
     "server": "npm run start && NODE_ENV=production node ./serverBuild/server",
     "server:dev": "NODE_ENV=development ts-node --project tsconfig.server.json ./server/index.ts",
     "server:watch": "nodemon",
