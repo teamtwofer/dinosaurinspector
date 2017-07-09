@@ -30,7 +30,7 @@ describe('UserController', () => {
     }),
   } as any;
 
-  const realDate = new Date('June 1, 2016');
+  const realDate = new Date('2016-06-01T07:00:00+0000');
 
   beforeEach(async () => {
     Test.createTestingModule({

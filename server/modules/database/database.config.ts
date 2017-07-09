@@ -10,7 +10,9 @@ export class DatabaseConfig {
     const { env } = process;
     const isTesting = env.NODE_ENV === 'test';
     const useOptions = !!process.env.DATABASE_URL;
-    const options = PG.parse(process.env.DATABASE_URL);
+    const options = useOptions
+      ? PG.parse(process.env.DATABASE_URL)
+      : {} as PG.ConnectionOptions;
     return {
       autoSchemaSync: true,
       driver: {
