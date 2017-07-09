@@ -4,7 +4,7 @@
   "description": "Project management software",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build:server && npm run build",
+    "start": "psql $DATABASE_URL -f init.sql; npm run build:server && npm run build",
     "build": "webpack --config webpack.production.config.js",
     "build:server": "tsc --project tsconfig.server.json",
     "server": "npm run start && NODE_ENV=production node ./serverBuild/server",
@@ -104,16 +104,9 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "unmockedModulePathPatterns": [
-      "react"
-    ],
+    "unmockedModulePathPatterns": ["react"],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
