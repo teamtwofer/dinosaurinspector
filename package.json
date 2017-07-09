@@ -82,7 +82,7 @@
     "react-router-dom": "^4.1.1",
     "reflect-metadata": "^0.1.10",
     "resolve-url-loader": "^2.0.3",
-    "rxjs": "^5.4.1",
+    "rxjs": "^5.4.2",
     "sass-loader": "^6.0.6",
     "sendgrid": "^5.1.1",
     "sqlite3": "^3.1.8",
@@ -104,9 +104,16 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "unmockedModulePathPatterns": ["react"],
+    "unmockedModulePathPatterns": [
+      "react"
+    ],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
