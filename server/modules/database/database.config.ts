@@ -14,9 +14,7 @@ export class DatabaseConfig {
     return {
       autoSchemaSync: true,
       driver: {
-        database: isTesting
-          ? useOptions ? options.user! : 'dinosaur_testing'
-          : 'dinosaur_development',
+        database: isTesting ? 'dinosaur_testing' : 'dinosaur_development',
         host: useOptions ? options.host! : 'localhost',
         password: useOptions ? options.password! : 'potato',
         port: useOptions ? options.port! : 5432,

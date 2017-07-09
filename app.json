@@ -14,7 +14,7 @@
   "environments": {
     "test": {
       "scripts": {
-        "test-setup": "npm install",
+        "test-setup": "npm install && psql $DATABASE_URL -f init",
         "test": "npm run lint && npm run test"
       },
       "env": {
