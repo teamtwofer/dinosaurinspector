@@ -1,8 +1,10 @@
 import { action, computed, observable } from 'mobx';
 
 import { IUser } from '../../types/user';
+import { TOKEN } from '../consts';
 import { cook, dateCooker } from '../cook';
 import { storage } from '../storage';
+import { get } from '../utils/api';
 
 export class User implements IUser {
   static cook(rawUser: any): User {
@@ -20,8 +22,6 @@ export class User implements IUser {
   @observable createdAt: Date;
   @observable updatedAt: Date | null;
 }
-
-const TOKEN = 'token';
 
 // tslint:disable-next-line:max-classes-per-file
 export class UserStore {
@@ -44,11 +44,16 @@ export class UserStore {
   @action.bound
   async loadUser(token: string) {
     this.isLoading = true;
-    const rawUser = await fetch('/api/user', {
-      headers: {
-        'x-access-token': token,
-      },
-    }).then(r => r.json());
+    let rawUser: any;
+    storage.setItem(TOKEN, token);
+    try {
+      rawUser = await get('/api/user');
+    } catch (e) {
+      // tslint:disable-next-line:no-console
+      console.log(e);
+      return;
+    }
+
     this.updateUser(rawUser, token);
   }
 

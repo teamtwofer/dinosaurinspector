@@ -14,6 +14,7 @@
     ],
     "member-access": [true, "no-public"],
     "variable-name": [true, "allow-leading-underscore"],
+    "jsx-wrap-multiline": false,
     "jsx-boolean-value": [true, "never"],
     "jsx-no-multiline-js": false,
     "no-empty-interface": false,

@@ -8,6 +8,8 @@ import { matchValue, minLength, required } from './validators';
 export class RecoverPasswordStore
   implements IForm<{ user: Pick<IRegisterUser, 'password'> }> {
   @observable isLoading = false;
+  @observable isSuccess = false;
+  @observable error: string;
 
   @observable
   password = new FieldState('').validators(
@@ -21,8 +23,6 @@ export class RecoverPasswordStore
     matchValue('password', () => this.password)
   );
 
-  @observable error: string;
-
   @observable
   form = new FormState({
     confirmPassword: this.confirmPassword,
@@ -31,25 +31,29 @@ export class RecoverPasswordStore
 
   @action.bound
   updateError(message: string) {
+    this.isLoading = false;
+    this.isSuccess = false;
     this.error = message;
   }
 
   @action.bound
-  stopLoading() {
+  succeed() {
     this.isLoading = false;
+    this.isSuccess = true;
   }
 
   @action.bound
-  startLoading() {
+  load() {
     this.isLoading = true;
+    this.isSuccess = false;
   }
 
   @action.bound
   async create(id: string): Promise<{ user: IUser; token: string } | void> {
-    this.startLoading();
+    this.load();
     const errors = await this.form.validate();
     if (errors.hasError) {
-      this.stopLoading();
+      this.updateError('');
       return;
     }
 
@@ -59,16 +63,15 @@ export class RecoverPasswordStore
         this.value
       );
 
-      this.stopLoading();
-
       if (userOrError.message) {
         this.updateError(userOrError.message);
         return;
       }
 
+      this.succeed();
+
       return userOrError;
     } catch (e) {
-      this.stopLoading();
       this.updateError(e);
       return;
     }

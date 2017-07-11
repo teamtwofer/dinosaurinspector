@@ -75,7 +75,7 @@ export class UserController {
   ) {
     try {
       await this.service.forgotPassword(user);
-      res.status(HttpStatus.ACCEPTED).send();
+      res.status(HttpStatus.ACCEPTED).json({ success: true });
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.NOT_ACCEPTABLE);
     }

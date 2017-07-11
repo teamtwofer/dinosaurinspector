@@ -1,5 +1,6 @@
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
+import { IForm } from '../../types/form';
 import { IRegisterUser, IUser } from '../../types/user';
 import {
   email as emailValidator,
@@ -8,7 +9,11 @@ import {
   required,
 } from './validators';
 
-export class CreateAccountStore {
+export class CreateAccountStore implements IForm<{ user: IRegisterUser }> {
+  @observable isLoading = false;
+  @observable isSuccess = false;
+  @observable error: string;
+
   @observable
   name = new FieldState('').validators(required('name'), minLength('name', 4));
 
@@ -31,8 +36,6 @@ export class CreateAccountStore {
     matchValue('password', () => this.password)
   );
 
-  @observable error: string;
-
   @observable
   form = new FormState({
     confirmPassword: this.confirmPassword,
@@ -43,12 +46,27 @@ export class CreateAccountStore {
 
   @action.bound
   updateError(message: string) {
+    this.isLoading = false;
+    this.isSuccess = false;
     this.error = message;
+  }
+
+  @action.bound
+  succeed() {
+    this.isLoading = false;
+    this.isSuccess = true;
+  }
+
+  @action.bound
+  load() {
+    this.isLoading = true;
+    this.isSuccess = false;
   }
 
   @action.bound
   async create(): Promise<{ user: IUser; token: string } | void> {
     const errors = await this.form.validate();
+    this.load();
     if (errors.hasError) {
       return;
     }
@@ -64,7 +82,10 @@ export class CreateAccountStore {
 
       if (userAndTokenOrError.message) {
         this.updateError(userAndTokenOrError.message);
+        return;
       }
+
+      this.succeed();
 
       return userAndTokenOrError;
     } catch (e) {
@@ -73,7 +94,7 @@ export class CreateAccountStore {
   }
 
   @computed
-  get value(): { user: IRegisterUser } {
+  get value() {
     const {
       email: { $: email },
       password: { $: password },
