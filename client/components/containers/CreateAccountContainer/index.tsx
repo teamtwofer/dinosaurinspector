@@ -4,11 +4,16 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Stores } from '../../../stores';
 import { CreateAccountStore } from '../../../stores/create-account.store';
+import { UserStore } from '../../../stores/user.store';
 import { AccountHeading } from '../../ui/AccountHeading';
 import { CallToAction } from '../../ui/CallToAction';
+import { ErrorMessage } from '../../ui/ErrorMessage/index';
 import { Input } from '../../ui/Input';
 
-@inject(({ createAccountStore }: Stores) => ({ createAccountStore }))
+@inject(({ createAccountStore, userStore }: Stores) => ({
+  createAccountStore,
+  userStore,
+}))
 @observer
 export class CreateAccountContainer extends React.PureComponent<Props, {}> {
   @autobind
@@ -17,14 +22,18 @@ export class CreateAccountContainer extends React.PureComponent<Props, {}> {
   ) {
     e.preventDefault();
 
-    const { create } = this.props.createAccountStore;
+    const { createAccountStore: { create }, userStore } = this.props;
 
-    await create();
+    const result = await create();
+    if (result) {
+      const { token, user } = result;
+      userStore.updateUser(user, token);
+    }
   }
   render() {
     const { match } = this.props;
-    const { email, password, name, confirmPassword, error } = this.props
-      .createAccountStore!;
+    const { email, password, name, confirmPassword, error, isLoading } = this
+      .props.createAccountStore!;
     return (
       <form onSubmit={this.createAccount}>
         <AccountHeading match={match} />
@@ -36,11 +45,8 @@ export class CreateAccountContainer extends React.PureComponent<Props, {}> {
           name="confirm password"
           type="password"
         />
-        {error &&
-          <p>
-            {error}
-          </p>}
-        <button type="submit" onClick={this.createAccount}>
+        <ErrorMessage error={error} />
+        <button type="submit" onClick={this.createAccount} disabled={isLoading}>
           Login
         </button>
         <CallToAction match={match} />
@@ -51,4 +57,5 @@ export class CreateAccountContainer extends React.PureComponent<Props, {}> {
 
 export interface Props extends RouteComponentProps<void> {
   createAccountStore: CreateAccountStore;
+  userStore: UserStore;
 }

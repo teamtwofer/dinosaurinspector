@@ -1,0 +1,37 @@
+:global {
+  .padding-small {
+    padding: .5rem;
+  }
+
+  .padding-small-horizontal {
+    padding: {
+      left: .5rem;
+      right: .5rem;
+    }
+  }
+
+  .padding-small-vertical {
+    padding: {
+      top: .5rem;
+      bottom: .5rem;
+    }
+  }
+
+  .padding-medium {
+    padding: 1rem;
+  }
+
+  .padding-medium-vertical {
+    padding: {
+      top: 1rem;
+      bottom: 1rem;
+    }
+  }
+
+  .padding-medium-horizontal {
+    padding: {
+      left: 1rem;
+      right: 1rem;
+    }
+  }
+}

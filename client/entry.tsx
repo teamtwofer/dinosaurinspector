@@ -1,4 +1,5 @@
-declare const require: (s: string) => React.ComponentClass<any>;
+import './globals.scss';
+import './styles/paddings.scss';
 
 import { Provider } from 'mobx-react';
 import * as React from 'react';

@@ -1,0 +1,33 @@
+@import '../../../styles/variables.scss';
+
+.button {
+  border: {
+    width: 1px;
+    style: solid;
+    color: $primary-color;
+  }
+  background: transparent;
+  font: {
+    size: inherit;
+    weight: 400;
+  }
+  height: 3.4rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  width: 200px;
+  color: $primary-color;
+  border-radius: 2rem;
+  transition: all .25s ease-in-out;
+  cursor: pointer;
+  &.isLoading {
+    padding: .05rem;
+  }
+  &:hover:not(:disabled):not(.isLoading) {
+    background: $primary-color;
+    color: white;
+  }
+  &:disabled {
+    opacity: .6;
+    cursor: wait;
+  }
+}

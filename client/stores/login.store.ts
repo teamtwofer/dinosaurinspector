@@ -1,19 +1,21 @@
 // import { types } from 'mobx-state-tree';
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
+import { IForm } from '../../types/form';
+import { IRegisterUser } from '../../types/user';
 import { required } from './validators';
 
-export class LoginStore {
+export class LoginStore
+  implements IForm<{ user: Pick<IRegisterUser, 'email' | 'password'> }> {
+  @observable isLoading = false;
+  @observable isSuccess = false;
+  @observable error: string;
   @observable email = new FieldState('').validators(required('email'));
 
   @observable password = new FieldState('').validators(required('password'));
 
   @observable
   form = new FormState({ email: this.email, password: this.password });
-
-  @observable error: string;
-
-  @observable isLoading = false;
 
   @computed
   get value() {
@@ -22,14 +24,30 @@ export class LoginStore {
   }
 
   @action.bound
-  updateError(error: string) {
-    this.error = error;
+  updateError(message: string) {
+    this.isLoading = false;
+    this.isSuccess = false;
+    this.error = message;
+  }
+
+  @action.bound
+  succeed() {
+    this.isLoading = false;
+    this.isSuccess = true;
+  }
+
+  @action.bound
+  load() {
+    this.isLoading = true;
+    this.isSuccess = false;
   }
 
   @action.bound
   async loginUser(): Promise<string | void> {
     const errors = await this.form.validate();
+    this.load();
     if (errors.hasError) {
+      this.updateError('');
       return;
     }
     try {
@@ -43,7 +61,10 @@ export class LoginStore {
 
       if (tokenOrError.message) {
         this.updateError(tokenOrError.message);
+        return;
       }
+
+      this.succeed();
 
       return tokenOrError.token;
     } catch (e) {

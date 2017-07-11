@@ -5,26 +5,31 @@ import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { autobind } from 'core-decorators';
 import { RouteProps } from 'react-router';
 import { AccountContainer } from './components/containers/AccountContainer';
+import { Header } from './components/containers/Header/index';
+import { NEXT } from './consts';
+import { storage } from './storage';
 import { UserStore } from './stores/user.store';
 import { Test } from './test/test';
 import { account, index, login } from './urls';
 
-export interface Props extends RouteProps {
-  userStore?: UserStore;
-}
+export interface Props extends RouteProps {}
 
 export interface LoadingProps extends Props {
-  props: any;
+  userStore?: UserStore;
+  props: RouteProps;
 }
 
 @observer
-export class App extends React.PureComponent<Props, {}> {
+export class App extends React.PureComponent<Props, never> {
   render() {
     return (
       <Router>
         <main>
-          <AuthRoute exact path={index()} component={Test} />
-          <Route path={account()} component={AccountContainer} />
+          <Header />
+          <section className="padding-medium">
+            <AuthRoute exact path={index()} component={Test} />
+            <Route path={account()} component={AccountContainer} />
+          </section>
         </main>
       </Router>
     );
@@ -32,20 +37,14 @@ export class App extends React.PureComponent<Props, {}> {
 }
 
 // tslint:disable-next-line:max-classes-per-file
-@inject('userStore')
 @observer
 export class AuthRoute extends React.Component<Props, never> {
   @autobind
   renderRoute(props: any) {
-    // tslint:disable-next-line:variable-name
     return <LoadingRoute {...this.props} props={props} />;
   }
   render() {
-    const {
-      userStore: _userStore,
-      component: _component,
-      ...rest,
-    } = this.props;
+    const { component: _component, ...rest } = this.props;
 
     return <Route {...rest} render={this.renderRoute} />;
   }
@@ -54,7 +53,7 @@ export class AuthRoute extends React.Component<Props, never> {
 // tslint:disable-next-line:max-classes-per-file
 @inject('userStore')
 @observer
-class LoadingRoute extends React.PureComponent<LoadingProps, object> {
+class LoadingRoute extends React.PureComponent<LoadingProps, never> {
   render() {
     // tslint:disable-next-line:variable-name
     const { userStore, component: Component, props } = this.props;
@@ -65,6 +64,7 @@ class LoadingRoute extends React.PureComponent<LoadingProps, object> {
     if (currentUser) {
       return React.createElement(Component as any, props, null);
     } else {
+      storage.setItem(NEXT, props.location!.pathname);
       return <Redirect to={login()} />;
     }
   }

@@ -6,6 +6,7 @@ import { lang } from '../../../../lang';
 import { Stores } from '../../../stores';
 import { ForgotPasswordStore } from '../../../stores/forgot-password.store';
 import { AccountHeading } from '../../ui/AccountHeading';
+import { Button } from '../../ui/Button';
 import { CallToAction } from '../../ui/CallToAction';
 import { Input } from '../../ui/Input';
 
@@ -23,15 +24,20 @@ export class ForgotPasswordContainer extends React.PureComponent<Props, any> {
   }
 
   render() {
-    const { match, forgotPasswordStore: { email } } = this.props;
+    const { match, forgotPasswordStore: { email, isLoading } } = this.props;
     return (
       <div>
         <AccountHeading match={match} />
         {lang.EXPLAIN_FORGOT_PASSWORD()}
         <Input field={email} name="email" type="email" />
-        <button type="submit" onClick={this.createAccount}>
+        <Button
+          isLoading={isLoading}
+          type="submit"
+          onClick={this.createAccount}
+          disabled={isLoading}
+        >
           {lang.SEND_RECOVERY_EMAIL()}
-        </button>
+        </Button>
         <CallToAction match={match} />
       </div>
     );
