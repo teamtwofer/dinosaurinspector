@@ -78,28 +78,26 @@ export class UserService implements ICrud<User, IRegisterUser> {
 
   @autobind
   async forgotPassword(user: IForgotUser) {
-    if (user && user.email) {
-      const realUser = await (await this.repository).findOne({
-        email: user.email,
-      });
-      if (realUser) {
-        const forgotPassword = await this.forgotPasswordService.add(realUser);
-        this.emailService.sendMail(
-          realUser,
-          '0512eeea-c584-4943-bc1e-13935effeb32',
-          {
-            '-name-': realUser.name,
-            '-url-':
-              'https://twofer.co/acount/recover-password/' + forgotPassword.id,
-          }
-        );
-        return; // send email
-      } else {
-        // log that this happened?
-        return; // maybe send email to account with message
-        // hey someone is trying to access your account here
-        // even though you don't have one. With us.
-      }
+    const realUser = await (await this.repository).findOne({
+      email: user.email,
+    });
+    if (realUser) {
+      const forgotPassword = await this.forgotPasswordService.add(realUser);
+      this.emailService.sendMail(
+        realUser,
+        '0512eeea-c584-4943-bc1e-13935effeb32',
+        {
+          '-name-': realUser.name,
+          '-url-':
+            'https://twofer.co/account/recover-password/' + forgotPassword.id,
+        }
+      );
+      return; // send email
+    } else {
+      // log that this happened?
+      return; // maybe send email to account with message
+      // hey someone is trying to access your account here
+      // even though you don't have one. With us.
     }
   }
 
@@ -110,14 +108,16 @@ export class UserService implements ICrud<User, IRegisterUser> {
       throw new Error(lang.INVALID_EMAIL_OR_PASSWORD());
     }
 
-    const validPassword = await bcrypt.compare(password, user.hashedPassword);
-
-    if (!validPassword) {
+    try {
+      const validPassword = await bcrypt.compare(password, user.hashedPassword);
+      if (!validPassword) {
+        throw new Error(lang.INVALID_EMAIL_OR_PASSWORD());
+      }
+    } catch (_e) {
       throw new Error(lang.INVALID_EMAIL_OR_PASSWORD());
     }
 
     const { id } = user;
-
     return jwt.sign({ id } as object, key, {
       expiresIn: 60 * 60 * 24 * 14,
     });

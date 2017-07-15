@@ -9,7 +9,7 @@ interface Sub {
 
 @Component()
 export class EmailService {
-  get mailer() {
+  private get mailer() {
     return sg(
       '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'
     );
