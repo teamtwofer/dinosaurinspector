@@ -8,7 +8,7 @@ export class AuthMiddleware implements NestMiddleware {
   constructor(private service: UserService) {}
 
   @autobind
-  resolve() {
+  resolve(): (req, res, next) => void {
     return async (req: any, _res: any, next: () => void) => {
       const token = req.headers['x-access-token'];
       if (!token) {

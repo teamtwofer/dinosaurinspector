@@ -3,6 +3,8 @@ import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import bodyParser = require('body-parser');
 import compression = require('compression');
+import helmet = require('helmet');
+import enforceSSL = require('express-enforces-ssl');
 import * as express from 'express';
 import * as morgan from 'morgan';
 import * as path from 'path';
@@ -14,11 +16,15 @@ const port = process.env.PORT || 3000;
 const publicPath = path.resolve(__dirname, '../public');
 
 const server = express();
-
+server.enable('trust proxy');
 server.use(compression());
 server.use(morgan('dev'));
+server.use(helmet());
 server.use(express.static(publicPath));
 server.use(bodyParser.json());
+if (isProduction) {
+  server.use(enforceSSL());
+}
 
 server.get('*', (req, res, next) => {
   const isHTMLRequest =
