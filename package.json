@@ -7,7 +7,7 @@
     "start": "psql $DATABASE_URL -f init.sql; npm run build:server && npm run build && cp -r public serverBuild",
     "build": "webpack --config webpack.production.config.js",
     "build:server": "tsc --project tsconfig.server.json",
-    "server": "npm run start && NODE_ENV=production pm2 start ./serverBuild/server -i 4",
+    "server": "npm run start && NODE_ENV=production npx pm2 start ./serverBuild/server -i max --attach",
     "server:dev": "NODE_ENV=development ts-node --project tsconfig.server.json ./server/index.ts",
     "server:watch": "nodemon",
     "lint": "tslint -t stylish \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
@@ -23,7 +23,7 @@
   "private": true,
   "engines": {
     "node": "^8.1.0",
-    "npm": "^5.0.1"
+    "npm": "^5.3.0"
   },
   "dependencies": {
     "@nestjs/common": "^3.0.1",
