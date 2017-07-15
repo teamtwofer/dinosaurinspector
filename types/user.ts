@@ -6,6 +6,11 @@ export interface IUser {
   updatedAt: Date | null;
 }
 
+export interface ILoginUser {
+  email: string;
+  password: string;
+}
+
 export interface IRegisterUser {
   email: string;
   name: string;

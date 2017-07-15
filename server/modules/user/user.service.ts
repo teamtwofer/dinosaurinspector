@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import bcrypt = require('bcrypt');
 import { lang } from '../../../lang';
 import { ICrud } from '../../../types/crud';
-import { IForgotUser, IRegisterUser } from '../../../types/user';
+import { IForgotUser, ILoginUser, IRegisterUser } from '../../../types/user';
 import { User } from '../../entities/user.entity';
 import key from '../../entities/user.key';
 import { DatabaseService } from '../database/database.service';
@@ -20,7 +20,7 @@ export class UserService implements ICrud<User, IRegisterUser> {
     public emailService: EmailService
   ) {
     if (process.env.NODE_ENV === 'development') {
-      this.seed();
+      // this.seed();
     }
   }
 
@@ -104,10 +104,7 @@ export class UserService implements ICrud<User, IRegisterUser> {
   }
 
   @autobind
-  async generateToken({
-    email,
-    password,
-  }: Partial<IRegisterUser>): Promise<string> {
+  async generateToken({ email, password }: ILoginUser): Promise<string> {
     const user = await (await this.repository).findOne({ email });
     if (!user) {
       throw new Error(lang.INVALID_EMAIL_OR_PASSWORD());

@@ -1,5 +1,5 @@
 export interface ICrud<FullType, PartialType> {
-  seed(): Promise<FullType> | Promise<FullType[]>;
+  seed(): Promise<FullType | FullType[]>;
   add(entity: PartialType): Promise<FullType>;
   getAll(): Promise<FullType[]>;
   get(id: number): Promise<FullType | undefined>;
