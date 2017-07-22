@@ -1,0 +1,11 @@
+@import '../../../styles/variables.scss';
+
+.footer {
+  grid-column-start: start;
+  grid-column-end: end;
+  background: $tertiary-color;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
