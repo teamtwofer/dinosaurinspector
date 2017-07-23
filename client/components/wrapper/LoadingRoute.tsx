@@ -19,7 +19,6 @@ export class LoadingRoute extends React.Component<LoadingProps, never> {
     // tslint:disable-next-line:variable-name
     const { userStore, component: Component, props } = this.props;
     const { currentUser, isLoading } = userStore!;
-    console.log('rendering loading route...');
     if (!Component) {
       throw new Error();
     }

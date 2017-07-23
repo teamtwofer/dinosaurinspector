@@ -41,7 +41,6 @@ function isSuccess(...stores: Array<IForm<any>>): boolean {
 @observer
 export class AccountContainer extends React.PureComponent<Props, {}> {
   render() {
-    console.log('rendering account container route');
     const next = storage.getItem(NEXT);
     const {
       createAccountStore,

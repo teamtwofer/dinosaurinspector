@@ -12,7 +12,6 @@ export class AuthRoute extends React.Component<RouteProps, never> {
   }
   render() {
     const { component: _component, ...rest } = this.props;
-    console.log('rendering auth route');
     return <Route {...rest} render={this.renderRoute} />;
   }
 }
