@@ -2,7 +2,8 @@
 
 .header {
   background-color: $primary-color;
-  height: 50px;
+  grid-column-start: start;
+  grid-column-end: end;
 }
 
 .image {
