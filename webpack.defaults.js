@@ -82,6 +82,10 @@ module.exports = {
       template: 'public/index.tpl.html',
       inject: 'body',
       filename: 'index.html',
+      tagging:
+        process.env.NODE_ENV === 'production'
+          ? '<script async src="https://getmirrorshades.com/agent.js" data-siteId="MA-WAEYPG-TNT"></script>'
+          : '',
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
   ],
