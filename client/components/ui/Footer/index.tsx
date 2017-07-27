@@ -7,7 +7,7 @@ export class Footer extends React.PureComponent<{}, {}> {
   render() {
     return (
       <footer className={`${styles.footer} padding-medium-horizontal`}>
-        &copy; Twofer.co - Behind every keyboard is a person.
+        &copy; 2017 Twofer.co - Behind every keyboard is a person.
       </footer>
     );
   }

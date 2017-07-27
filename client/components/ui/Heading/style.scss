@@ -1,4 +1,21 @@
 .header {
-  font-size: 1.5rem;
-  margin-bottom: .5rem;
+  margin: 1.414em 0 0.5em;
+  font-weight: inherit;
+  line-height: 1.2;
+  font-size: 3.998em;
+  &.sub {
+    font-size: 2.827em;
+  }
+
+  &.accent {
+    font-size: 1.999em;
+  }
+
+  &.small {
+    font-size: 1.414em;
+  }
+}
+
+.center {
+  text-align: center;
 }

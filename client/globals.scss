@@ -1,3 +1,4 @@
+@import './styles/variables';
 :global {
   /* http://meyerweb.com/eric/tools/css/reset/ 
     v2.0 | 20110126
@@ -90,7 +91,7 @@
     border: 0;
     font-size: inherit;
     font: inherit;
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.4;
     vertical-align: baseline;
   }
@@ -145,8 +146,11 @@
   html,
   body {
     font: {
-      size: 15px;
+      size: 16px;
     }
+    line-height: 1.414;
+    color: $primary-text-color;
+    font-weight: 300;
   }
 
   * {

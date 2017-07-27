@@ -1,6 +1,6 @@
 .grid {
   display: grid;
-  grid-template-rows: 50px auto 50px;
+  grid-template-rows: 3rem auto 4rem;
   grid-template-columns: [start] 1fr [content-start]
     repeat(2, minmax(auto, 50em)) [content-end] 1fr [end];
   min-height: 100vh;

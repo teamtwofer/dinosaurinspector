@@ -1,18 +1,36 @@
 import * as React from 'react';
-
+import classnames = require('classnames');
 // tslint:disable-next-line:no-var-requires
 const styles = require('./style.scss');
 
-export class Heading extends React.PureComponent<
-  React.HTMLProps<HTMLHeadingElement>,
-  object
-> {
+export enum HeadingStyle {
+  Sub = 'sub',
+  Accent = 'accent',
+  Small = 'small',
+}
+
+export class Heading extends React.PureComponent<Props, object> {
   render() {
-    const { children, ...rest } = this.props;
+    const { children, className, center, headingStyle, ...rest } = this.props;
     return (
-      <h1 {...rest} className={`${rest.className} ${styles.header}`}>
+      <h1
+        {...rest}
+        className={classnames(
+          className,
+          styles.header,
+          headingStyle && styles[headingStyle],
+          {
+            [styles.center]: center,
+          }
+        )}
+      >
         {children}
       </h1>
     );
   }
+}
+
+export interface Props extends React.HTMLProps<HTMLHeadingElement> {
+  center?: boolean;
+  headingStyle?: HeadingStyle;
 }

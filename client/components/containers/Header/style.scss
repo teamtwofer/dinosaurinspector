@@ -4,8 +4,11 @@
   background-color: $primary-color;
   grid-column-start: start;
   grid-column-end: end;
+  display: flex;
+  overflow: hidden;
 }
 
 .image {
-  height: 100%;
+  object-fit: scale-down;
+  object-position: left;
 }
