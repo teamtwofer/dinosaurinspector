@@ -25,5 +25,11 @@ export const enUS = {
     on the corresponding page.
   `,
   SEND_RECOVERY_EMAIL: () => 'Send Recovery Email',
+  IDEATION: () => 'Twofer is still under ideation.',
+  THANKS_FOR_VISITING: () => 'Thank you for checking out our site!',
+  WHY_NO_CONTENT: () => `
+    We are currently in the process of ethnography to determine what we
+    are going to build. We should have some updates soon.
+  `,
 };
 // tslint:enable:object-literal-sort-keys

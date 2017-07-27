@@ -7,14 +7,14 @@ import {
   isLogin,
   isRememberingPassword,
 } from '../../../utils/account';
-import { Heading } from '../Heading';
+import { Heading, HeadingStyle } from '../Heading';
 
 @observer
 export class AccountHeading extends React.PureComponent<any, any> {
   render() {
     const { match } = this.props;
     return (
-      <Heading>
+      <Heading headingStyle={HeadingStyle.Sub}>
         {isLogin(match) && lang.LOGIN()}
         {isCreatingAccount(match) && lang.CREATE_ACCOUNT()}
         {isRememberingPassword(match) && lang.FORGOT_PASSWORD()}
