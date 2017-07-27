@@ -7,7 +7,8 @@
     "start": "psql $DATABASE_URL -f init.sql; npm run build:server && npm run build && cp -r public serverBuild",
     "build": "webpack --config webpack.production.config.js",
     "build:server": "tsc --project tsconfig.server.json",
-    "server": "npm run start && NODE_ENV=production npx pm2 start ./serverBuild/server -i max --attach",
+    "postinstall": "npm run start",
+    "server": "NODE_ENV=production npx pm2 start ./serverBuild/server -i max --attach",
     "server:dev": "NODE_ENV=development ts-node --project tsconfig.server.json ./server/index.ts",
     "server:watch": "nodemon",
     "lint": "tslint -t stylish \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
@@ -112,16 +113,9 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "unmockedModulePathPatterns": [
-      "react"
-    ],
+    "unmockedModulePathPatterns": ["react"],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
