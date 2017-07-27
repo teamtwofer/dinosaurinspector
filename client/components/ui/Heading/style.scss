@@ -14,6 +14,21 @@
   &.small {
     font-size: 1.414em;
   }
+  @media (max-width: 1024px) {
+    font-size: 2.827em;
+    &.sub {
+      font-size: 1.999em;
+    }
+
+    &.accent {
+      font-size: 1.414em;
+    }
+
+    &.small {
+      font-size: 1em;
+      font-weight: semibold;
+    }
+  }
 }
 
 .center {
