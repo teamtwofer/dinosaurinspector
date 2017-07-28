@@ -83,12 +83,15 @@ describe('UserService', () => {
   });
 
   it('should reset passwords for users', async () => {
-    await service.forgotPassword(ben);
+    await service.forgotPassword(ben, { headers: {} });
     expect(mailerCalled).toBeCalled();
   });
 
   it('should not send mails for users that do not exist', async () => {
-    await service.forgotPassword({ email: 'ben@whatevenisthis.com' });
+    await service.forgotPassword(
+      { email: 'ben@whatevenisthis.com' },
+      { headers: {} }
+    );
     return expect(mailerCalled).not.toBeCalled();
   });
 
