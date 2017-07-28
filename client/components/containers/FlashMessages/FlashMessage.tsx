@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import cx = require('classnames');
+import { autobind } from 'core-decorators';
 import {
   FlashMessageType,
   IFlashMessage,
 } from '../../../../types/flash-messages';
 import { FlashMessageStore } from '../../../stores/flash-message.store';
-import { autobind } from 'core-decorators';
 
 // tslint:disable-next-line:no-var-requires
 const styles = require('./styles.scss');
