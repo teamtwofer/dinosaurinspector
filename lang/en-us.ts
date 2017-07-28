@@ -31,5 +31,10 @@ export const enUS = {
     We are currently in the process of ethnography to determine what we
     are going to build. We should have some updates soon.
   `,
+  FLASH_CREATE_ACCOUNT: () => 'Your account was successfully created.',
+  FLASH_LOGIN: () => 'Successfully Logged In!',
+  FLASH_FORGOT_PASSWORD: () =>
+    'If an account with this email has been created you should receive an email shortly.',
+  FLASH_NEW_PASSWORD: () => 'Your new password has been set!',
 };
 // tslint:enable:object-literal-sort-keys

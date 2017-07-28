@@ -1,8 +1,11 @@
 // import { types } from 'mobx-state-tree';
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
+import { lang } from '../../lang/index';
+import { FlashMessageType } from '../../types/flash-messages';
 import { IForm } from '../../types/form';
 import { IRegisterUser } from '../../types/user';
+import { flashMessageStore } from './flash-message.store';
 import { required } from './validators';
 
 export class LoginStore
@@ -40,6 +43,10 @@ export class LoginStore
   load() {
     this.isLoading = true;
     this.isSuccess = false;
+    flashMessageStore.addMessages({
+      type: FlashMessageType.Success,
+      content: lang.FLASH_LOGIN(),
+    });
   }
 
   @action.bound

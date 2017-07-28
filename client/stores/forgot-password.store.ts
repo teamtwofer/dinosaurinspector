@@ -1,8 +1,11 @@
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
+import { lang } from '../../lang/index';
+import { FlashMessageType } from '../../types/flash-messages';
 import { IForm } from '../../types/form';
 import { IForgotUser, IUser } from '../../types/user';
 import { post } from '../utils/api';
+import { flashMessageStore } from './flash-message.store';
 import { email as emailValidator, minLength, required } from './validators';
 
 export class ForgotPasswordStore implements IForm<{ user: IForgotUser }> {
@@ -36,6 +39,10 @@ export class ForgotPasswordStore implements IForm<{ user: IForgotUser }> {
   succeed() {
     this.isLoading = false;
     this.isSuccess = true;
+    flashMessageStore.addMessages({
+      type: FlashMessageType.Success,
+      content: lang.FLASH_FORGOT_PASSWORD(),
+    });
   }
 
   @action.bound
