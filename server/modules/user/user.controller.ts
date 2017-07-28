@@ -80,11 +80,12 @@ export class UserController {
   @Post('user/forgot-password')
   @UsePipes(new ValidatorPipe())
   async forgotPassword(
+    @Request() req: any,
     @Response() res: express.Response,
     @Body('user') user: ForgotPasswordUserValidator
   ) {
     try {
-      await this.service.forgotPassword(user);
+      await this.service.forgotPassword(user, req);
       res.status(HttpStatus.ACCEPTED).json({ success: true });
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.NOT_ACCEPTABLE);

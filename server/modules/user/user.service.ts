@@ -11,6 +11,7 @@ import key from '../../entities/user.key';
 import { DatabaseService } from '../database/database.service';
 import { EmailService } from '../email/email.service';
 import { ForgotPasswordService } from '../forgot-password/forgot-password.service';
+import parser = require('ua-parser-js');
 
 @Component()
 export class UserService implements ICrud<User, IRegisterUser> {
@@ -77,20 +78,16 @@ export class UserService implements ICrud<User, IRegisterUser> {
   }
 
   @autobind
-  async forgotPassword(user: IForgotUser) {
+  async forgotPassword(user: IForgotUser, req: any) {
     const realUser = await (await this.repository).findOne({
       email: user.email,
     });
     if (realUser) {
       const forgotPassword = await this.forgotPasswordService.add(realUser);
-      this.emailService.sendMail(
+      this.emailService.sendForgotPasswordEmail(
         realUser,
-        '0512eeea-c584-4943-bc1e-13935effeb32',
-        {
-          '-name-': realUser.name,
-          '-url-':
-            'https://twofer.co/account/recover-password/' + forgotPassword.id,
-        }
+        forgotPassword,
+        (parser as any)(req.headers['user-agent'])
       );
       return; // send email
     } else {

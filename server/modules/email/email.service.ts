@@ -1,53 +1,57 @@
 import { Component } from '@nestjs/common';
 import { autobind } from 'core-decorators';
-import * as sg from 'sendgrid';
+import postmark = require('postmark');
 import { IUser } from '../../../types/user';
+import { ForgotPassword } from '../../entities/forgot-password.entity';
 
-interface Sub {
+interface Fields {
   [name: string]: string;
 }
 
 @Component()
 export class EmailService {
   private get mailer() {
-    return sg(
-      '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'
+    return new postmark.Client(
+      process.env.NODE_ENV === 'production'
+        ? '012f8310-ee31-462b-a4e8-e220b8706c2e'
+        : 'POSTMARK_API_TEST',
+      {}
     );
+  }
+
+  @autobind
+  async sendForgotPasswordEmail(
+    user: IUser,
+    forgotPassword: ForgotPassword,
+    parsedUA: any
+  ) {
+    return this.sendMail(user, '2382981', {
+      name: user.name,
+      actionUrl:
+        'https://twofer.co/account/recover-password/' + forgotPassword.id,
+      operatingSystem: parsedUA.os.name,
+      browserName: parsedUA.browser.name,
+      supportUrl: 'email:ben@twofer.co',
+    });
   }
 
   @autobind
   async sendMail(
     { email: emailAddress }: IUser,
     templateID: string,
-    substitutions: Sub
+    substitutions: Fields
   ) {
-    const { mail } = sg;
-    const from = new mail.Email('ben@twofer.co');
-    const to = new mail.Email(emailAddress);
-    const content = new mail.Content(
-      'text/html',
-      "I'm replacing the <strong>body tag</strong>"
+    this.mailer.sendEmailWithTemplate(
+      {
+        From: 'ben@twofer.co',
+        TemplateId: templateID,
+        TemplateModel: substitutions,
+        To: emailAddress,
+      },
+      () => {
+        // tslint:disable-next-line:no-console
+        console.log(`Email: ${templateID} was sent correctly`);
+      }
     );
-    const email = new mail.Mail(from, 'Forgot Password', to, content);
-    const personalization = new mail.Personalization();
-    for (const key of Object.keys(substitutions)) {
-      const sub = new mail.Substitution(key, substitutions[key]);
-      personalization.addSubstitution(sub);
-    }
-    personalization.addTo(to);
-    email.addPersonalization(personalization);
-    email.setTemplateId(templateID);
-
-    const request = this.mailer.emptyRequest({
-      body: email.toJSON(),
-      method: 'POST',
-      path: '/v3/mail/send',
-    });
-
-    try {
-      await this.mailer.API(request);
-    } catch (e) {
-      e.response.body.errors.map(console.log);
-    }
   }
 }
