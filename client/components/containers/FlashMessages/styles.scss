@@ -1,0 +1,18 @@
+.messagesContainer {
+  position: absolute;
+  bottom: 1em;
+}
+
+.message {
+  padding: 1em;
+  border: 1px solid #dfdfdf;
+  &.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+}
+
+.close {
+  cursor: pointer;
+}

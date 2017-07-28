@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { RouteComponentProps } from 'react-router';
 import { AccountContainer } from './components/containers/AccountContainer';
+import { FlashMessages } from './components/containers/FlashMessages';
 import { Header } from './components/containers/Header';
 import { Home } from './components/containers/Home';
 import { Footer } from './components/ui/Footer';
@@ -23,6 +24,7 @@ export class App extends React.PureComponent<RouteComponentProps<any>, never> {
             <Route exact path={index()} component={Home} />
             <AuthRoute exact path={'/test'} component={Test} />
             <Route path={account()} component={AccountContainer} />
+            <FlashMessages />
           </MainContent>
           <Footer />
         </MainGrid>

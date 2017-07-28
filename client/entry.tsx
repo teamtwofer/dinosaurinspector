@@ -8,6 +8,7 @@ import { AppContainer } from 'react-hot-loader';
 
 import { App } from './app';
 import { CreateAccountStore } from './stores/create-account.store';
+import { flashMessageStore } from './stores/flash-message.store';
 import { ForgotPasswordStore } from './stores/forgot-password.store';
 import { LoginStore } from './stores/login.store';
 import { RecoverPasswordStore } from './stores/recover-password.store';
@@ -33,6 +34,7 @@ const render = (Component: React.ComponentClass<any>) => {
         createAccountStore={createAccountStore}
         forgotPasswordStore={forgotPasswordStore}
         recoverPasswordStore={recoverPasswordStore}
+        flashMessageStore={flashMessageStore}
       >
         <Component />
       </Provider>

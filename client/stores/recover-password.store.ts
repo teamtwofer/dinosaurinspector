@@ -1,8 +1,11 @@
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
+import { lang } from '../../lang/index';
+import { FlashMessageType } from '../../types/flash-messages';
 import { IForm } from '../../types/form';
 import { IRegisterUser, IUser } from '../../types/user';
 import { patch } from '../utils/api';
+import { flashMessageStore } from './flash-message.store';
 import { matchValue, minLength, required } from './validators';
 
 export class RecoverPasswordStore
@@ -40,6 +43,10 @@ export class RecoverPasswordStore
   succeed() {
     this.isLoading = false;
     this.isSuccess = true;
+    flashMessageStore.addMessages({
+      type: FlashMessageType.Success,
+      content: lang.FLASH_NEW_PASSWORD(),
+    });
   }
 
   @action.bound

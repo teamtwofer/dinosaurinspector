@@ -1,7 +1,10 @@
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
+import { lang } from '../../lang/index';
+import { FlashMessageType } from '../../types/flash-messages';
 import { IForm } from '../../types/form';
 import { IRegisterUser, IUser } from '../../types/user';
+import { flashMessageStore } from './flash-message.store';
 import {
   email as emailValidator,
   matchValue,
@@ -55,6 +58,10 @@ export class CreateAccountStore implements IForm<{ user: IRegisterUser }> {
   succeed() {
     this.isLoading = false;
     this.isSuccess = true;
+    flashMessageStore.addMessages({
+      type: FlashMessageType.Success,
+      content: lang.FLASH_CREATE_ACCOUNT(),
+    });
   }
 
   @action.bound
