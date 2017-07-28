@@ -36,7 +36,7 @@ export class EmailService {
   }
 
   @autobind
-  async sendMail(
+  private async sendMail(
     { email: emailAddress }: IUser,
     templateID: string,
     substitutions: Fields

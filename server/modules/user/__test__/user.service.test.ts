@@ -31,7 +31,7 @@ describe('UserService', () => {
         {
           provide: EmailService,
           useValue: {
-            sendMail: () => {
+            sendForgotPasswordEmail: () => {
               mailerCalled();
               return Promise.resolve();
             },
