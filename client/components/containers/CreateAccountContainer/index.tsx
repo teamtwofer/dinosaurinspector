@@ -6,6 +6,7 @@ import { Stores } from '../../../stores';
 import { CreateAccountStore } from '../../../stores/create-account.store';
 import { UserStore } from '../../../stores/user.store';
 import { AccountHeading } from '../../ui/AccountHeading';
+import { Button } from '../../ui/Button/index';
 import { CallToAction } from '../../ui/CallToAction';
 import { ErrorMessage } from '../../ui/ErrorMessage/index';
 import { Input } from '../../ui/Input';
@@ -22,13 +23,9 @@ export class CreateAccountContainer extends React.PureComponent<Props, {}> {
   ) {
     e.preventDefault();
 
-    const { createAccountStore: { create }, userStore } = this.props;
+    const { createAccountStore: { create } } = this.props;
 
-    const result = await create();
-    if (result) {
-      const { token, user } = result;
-      userStore.updateUser(user, token);
-    }
+    create();
   }
   render() {
     const { match } = this.props;
@@ -46,9 +43,9 @@ export class CreateAccountContainer extends React.PureComponent<Props, {}> {
           type="password"
         />
         <ErrorMessage error={error} />
-        <button type="submit" onClick={this.createAccount} disabled={isLoading}>
+        <Button type="submit" onClick={this.createAccount} disabled={isLoading}>
           Login
-        </button>
+        </Button>
         <CallToAction match={match} />
       </form>
     );

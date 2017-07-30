@@ -1,6 +1,8 @@
 import { action, observable } from 'mobx';
+import { Service } from 'typedi/decorators/Service';
 import { IFlashMessage } from '../../types/flash-messages';
 
+@Service()
 export class FlashMessageStore {
   @observable messages: IFlashMessage[] = [];
 
@@ -14,5 +16,3 @@ export class FlashMessageStore {
     this.messages.push(...flashMessages);
   }
 }
-
-export const flashMessageStore = new FlashMessageStore();

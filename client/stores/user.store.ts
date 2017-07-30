@@ -1,5 +1,5 @@
 import { action, computed, observable } from 'mobx';
-
+import { Service } from 'typedi/decorators/Service';
 import { IUser } from '../../types/user';
 import { TOKEN } from '../consts';
 import { cook, dateCooker } from '../cook';
@@ -24,6 +24,7 @@ export class User implements IUser {
 }
 
 // tslint:disable-next-line:max-classes-per-file
+@Service()
 export class UserStore {
   @observable isLoading = false;
 

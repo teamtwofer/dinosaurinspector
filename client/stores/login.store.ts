@@ -1,13 +1,15 @@
 // import { types } from 'mobx-state-tree';
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
+import { Service } from 'typedi/decorators/Service';
 import { lang } from '../../lang/index';
 import { FlashMessageType } from '../../types/flash-messages';
 import { IForm } from '../../types/form';
 import { IRegisterUser } from '../../types/user';
-import { flashMessageStore } from './flash-message.store';
+import { FlashMessageStore } from './flash-message.store';
 import { required } from './validators';
 
+@Service()
 export class LoginStore
   implements IForm<{ user: Pick<IRegisterUser, 'email' | 'password'> }> {
   @observable isLoading = false;
@@ -26,6 +28,8 @@ export class LoginStore
     return { user: { email, password } };
   }
 
+  constructor(private flashMessageStore: FlashMessageStore) {}
+
   @action.bound
   updateError(message: string) {
     this.isLoading = false;
@@ -43,7 +47,7 @@ export class LoginStore
   load() {
     this.isLoading = true;
     this.isSuccess = false;
-    flashMessageStore.addMessages({
+    this.flashMessageStore.addMessages({
       type: FlashMessageType.Success,
       content: lang.FLASH_LOGIN(),
     });
