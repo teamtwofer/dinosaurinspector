@@ -13,7 +13,7 @@ export interface Props extends RouteComponentProps<void> {
 
 @inject('userStore')
 @observer
-export class Test extends React.PureComponent<Props, {}> {
+export class Test extends React.Component<Props, {}> {
   render() {
     const { isLoading, currentUser } = this.props.userStore!;
     return (

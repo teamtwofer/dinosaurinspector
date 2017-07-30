@@ -108,7 +108,7 @@ export class CreateAccountStore implements IForm<{ user: IRegisterUser }> {
       }
       return userAndTokenOrError;
     } catch (e) {
-      this.updateError(e);
+      this.updateError(e.message);
     }
   }
 

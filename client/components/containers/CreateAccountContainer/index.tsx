@@ -2,6 +2,7 @@ import { autobind } from 'core-decorators';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { lang } from '../../../../lang/index';
 import { Stores } from '../../../stores';
 import { CreateAccountStore } from '../../../stores/create-account.store';
 import { UserStore } from '../../../stores/user.store';
@@ -44,7 +45,7 @@ export class CreateAccountContainer extends React.PureComponent<Props, {}> {
         />
         <ErrorMessage error={error} />
         <Button type="submit" onClick={this.createAccount} disabled={isLoading}>
-          Login
+          {lang.CREATE_ACCOUNT()}
         </Button>
         <CallToAction match={match} />
       </form>
