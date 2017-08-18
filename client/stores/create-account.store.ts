@@ -1,10 +1,12 @@
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
+import { Service } from 'typedi/decorators/Service';
 import { lang } from '../../lang/index';
 import { FlashMessageType } from '../../types/flash-messages';
 import { IForm } from '../../types/form';
 import { IRegisterUser, IUser } from '../../types/user';
-import { flashMessageStore } from './flash-message.store';
+import { FlashMessageStore } from './flash-message.store';
+import { UserStore } from './user.store';
 import {
   email as emailValidator,
   matchValue,
@@ -12,6 +14,7 @@ import {
   required,
 } from './validators';
 
+@Service()
 export class CreateAccountStore implements IForm<{ user: IRegisterUser }> {
   @observable isLoading = false;
   @observable isSuccess = false;
@@ -47,6 +50,11 @@ export class CreateAccountStore implements IForm<{ user: IRegisterUser }> {
     password: this.password,
   });
 
+  constructor(
+    private userStore: UserStore,
+    private flashMessageStore: FlashMessageStore
+  ) {}
+
   @action.bound
   updateError(message: string) {
     this.isLoading = false;
@@ -58,7 +66,7 @@ export class CreateAccountStore implements IForm<{ user: IRegisterUser }> {
   succeed() {
     this.isLoading = false;
     this.isSuccess = true;
-    flashMessageStore.addMessages({
+    this.flashMessageStore.addMessages({
       type: FlashMessageType.Success,
       content: lang.FLASH_CREATE_ACCOUNT(),
     });
@@ -94,9 +102,13 @@ export class CreateAccountStore implements IForm<{ user: IRegisterUser }> {
 
       this.succeed();
 
+      if (userAndTokenOrError) {
+        const { token, user } = userAndTokenOrError;
+        this.userStore.updateUser(user, token);
+      }
       return userAndTokenOrError;
     } catch (e) {
-      this.updateError(e);
+      this.updateError(e.message);
     }
   }
 

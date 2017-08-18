@@ -39,10 +39,9 @@ export class Input extends React.PureComponent<Props, never> {
           value={field.value}
           className={field.hasError && classes.error}
         />
-        {field.hasError &&
-          <p>
-            {field.error}
-          </p>}
+        <p>
+          {field.hasError && field.error}&nbsp;
+        </p>
       </div>
     );
   }
