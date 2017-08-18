@@ -23,7 +23,7 @@
   "author": "Team Twofer",
   "private": true,
   "engines": {
-    "node": "^8.1.0",
+    "node": "^8.4.0",
     "npm": "^5.3.0"
   },
   "dependencies": {
@@ -119,19 +119,9 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "unmockedModulePathPatterns": [
-      "react"
-    ],
+    "unmockedModulePathPatterns": ["react"],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ],
-    "testPathIgnorePatterns": [
-      "node_modules",
-      "serverBuild"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
+    "testPathIgnorePatterns": ["node_modules", "serverBuild"]
   }
 }
