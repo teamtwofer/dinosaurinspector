@@ -1,7 +1,7 @@
-import { observer } from 'mobx-react';
-import * as React from 'react';
 import cx = require('classnames');
 import { autobind } from 'core-decorators';
+import { observer } from 'mobx-react';
+import * as React from 'react';
 import {
   FlashMessageType,
   IFlashMessage,

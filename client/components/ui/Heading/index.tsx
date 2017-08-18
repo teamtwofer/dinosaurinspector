@@ -1,5 +1,5 @@
-import * as React from 'react';
 import classnames = require('classnames');
+import * as React from 'react';
 // tslint:disable-next-line:no-var-requires
 const styles = require('./style.scss');
 
