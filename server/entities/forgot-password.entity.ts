@@ -3,18 +3,14 @@ import {
   Entity,
   Index,
   ManyToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 
 @Entity()
 export class ForgotPassword {
-  @PrimaryColumn('uuid', {
-    generated: true,
-    type: 'uuid',
-  })
-  id: string;
+  @PrimaryGeneratedColumn('uuid') id: string;
 
   @CreateDateColumn()
   @Index()

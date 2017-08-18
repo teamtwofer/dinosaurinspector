@@ -55,6 +55,11 @@ export class UserStore {
       return;
     }
 
+    if (rawUser.message) {
+      storage.removeItem(TOKEN);
+      return;
+    }
+
     this.updateUser(rawUser, token);
   }
 

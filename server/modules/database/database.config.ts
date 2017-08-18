@@ -1,8 +1,8 @@
 import { Component } from '@nestjs/common';
+import PG = require('pg-connection-string');
 import { ConnectionOptions } from 'typeorm';
 import { ForgotPassword } from '../../entities/forgot-password.entity';
 import { User } from '../../entities/user.entity';
-import PG = require('pg-connection-string');
 
 @Component()
 export class DatabaseConfig {
@@ -15,23 +15,17 @@ export class DatabaseConfig {
       : {} as PG.ConnectionOptions;
     return {
       autoSchemaSync: true,
-      driver: {
-        database: useOptions
-          ? options.database!
-          : isTesting ? 'dinosaur_testing' : 'dinosaur_development',
-        host: useOptions ? options.host! : 'localhost',
-        password: useOptions ? options.password! : 'potato',
-        port: useOptions ? options.port! : 5432,
-        type: 'postgres',
-        username: useOptions ? options.user! : 'bbayard',
-      },
+      database: useOptions
+        ? options.database!
+        : isTesting ? 'dinosaur_testing' : 'dinosaur_development',
+      host: useOptions ? options.host! : 'localhost',
+      password: useOptions ? options.password! : 'potato',
+      port: useOptions ? options.port! : 5432,
+      type: 'postgres',
+      username: useOptions ? options.user! : 'bbayard',
       entities: [User, ForgotPassword],
-      logging: {
-        logFailedQueryError: !isTesting,
-        logQueries: !isTesting,
-      },
+      logging: isTesting ? false : 'all',
       name: `${Date.now()}`,
-      type: 'postgres' as any,
     };
   }
 }

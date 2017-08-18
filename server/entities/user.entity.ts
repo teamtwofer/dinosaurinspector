@@ -1,5 +1,5 @@
-import { Column, Entity, Index, OneToMany } from 'typeorm';
 import bcrypt = require('bcrypt');
+import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { IRegisterUser, IUser } from '../../types/user';
 import { Base } from './base.entity';
 import { ForgotPassword } from './forgot-password.entity';

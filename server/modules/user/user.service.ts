@@ -1,8 +1,9 @@
 import { Component } from '@nestjs/common';
+import bcrypt = require('bcrypt');
 import { autobind } from 'core-decorators';
 import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
-import bcrypt = require('bcrypt');
+import parser = require('ua-parser-js');
 import { lang } from '../../../lang';
 import { ICrud } from '../../../types/crud';
 import { IForgotUser, ILoginUser, IRegisterUser } from '../../../types/user';
@@ -11,7 +12,6 @@ import key from '../../entities/user.key';
 import { DatabaseService } from '../database/database.service';
 import { EmailService } from '../email/email.service';
 import { ForgotPasswordService } from '../forgot-password/forgot-password.service';
-import parser = require('ua-parser-js');
 
 @Component()
 export class UserService implements ICrud<User, IRegisterUser> {
