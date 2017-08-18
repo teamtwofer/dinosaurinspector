@@ -70,7 +70,6 @@
     "compression": "^1.7.0",
     "core-decorators": "^0.19.0",
     "css-loader": "0.28.5",
-    "cssloader": "1.1.1",
     "express": "4.15.4",
     "express-enforces-ssl": "^1.1.0",
     "extract-text-webpack-plugin": "3.0.0",
@@ -119,9 +118,19 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "unmockedModulePathPatterns": ["react"],
+    "unmockedModulePathPatterns": [
+      "react"
+    ],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
-    "testPathIgnorePatterns": ["node_modules", "serverBuild"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "serverBuild"
+    ]
   }
 }
