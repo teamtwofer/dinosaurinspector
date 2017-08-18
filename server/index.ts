@@ -12,7 +12,7 @@ import bundle from './bundle-server';
 import { ApplicationModule } from './modules/application.module';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const port = process.env.PORT || 3001;
+const port = parseInt(process.env.PORT || '3001', 10);
 const publicPath = path.resolve(__dirname, '../public');
 
 const server = express();
