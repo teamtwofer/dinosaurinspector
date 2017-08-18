@@ -27,6 +27,7 @@ export class DatabaseService {
       .catch(e => {
         // tslint:disable:no-console
         console.log('There was an error connection to the database');
+        console.log(e.message);
         console.info(this.databaseConfig.getConfiguration());
         // tslint:enable:no-console
         throw e;
