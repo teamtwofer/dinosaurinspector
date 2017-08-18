@@ -41,16 +41,16 @@ export class LoginStore
   succeed() {
     this.isLoading = false;
     this.isSuccess = true;
+    this.flashMessageStore.addMessages({
+      type: FlashMessageType.Success,
+      content: lang.FLASH_LOGIN(),
+    });
   }
 
   @action.bound
   load() {
     this.isLoading = true;
     this.isSuccess = false;
-    this.flashMessageStore.addMessages({
-      type: FlashMessageType.Success,
-      content: lang.FLASH_LOGIN(),
-    });
   }
 
   @action.bound
