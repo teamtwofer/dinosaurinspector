@@ -1,7 +1,9 @@
+import { lang } from '../lang';
+
 export function cook<Entity extends object, CookingKeys extends keyof Entity>(
   name: string,
   entity: Entity,
-  rawEntity: Record<keyof Entity, any>,
+  rawEntity: Record<keyof Pick<Entity, any>, any>,
   requiredKeys: Array<keyof Entity>,
   complexKeys?: Record<
     keyof Pick<Entity, CookingKeys>,
@@ -10,7 +12,7 @@ export function cook<Entity extends object, CookingKeys extends keyof Entity>(
 ): Entity {
   for (const key of requiredKeys) {
     if (!rawEntity[key]) {
-      throw new TypeError(`${name} does not have required field ${key}.`);
+      throw new TypeError(lang.COOKING_ERROR(name, key));
     }
   }
   Object.assign(entity, rawEntity);

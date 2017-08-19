@@ -36,5 +36,7 @@ export const enUS = {
   FLASH_FORGOT_PASSWORD: () =>
     'If an account with this email has been created you should receive an email shortly.',
   FLASH_NEW_PASSWORD: () => 'Your new password has been set!',
+  COOKING_ERROR: (name: string, key: string) =>
+    `${name} does not have required field ${key}.`,
 };
 // tslint:enable:object-literal-sort-keys
