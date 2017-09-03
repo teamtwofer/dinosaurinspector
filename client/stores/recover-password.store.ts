@@ -1,5 +1,6 @@
 import { FieldState, FormState } from 'formstate';
 import { action, computed, observable } from 'mobx';
+import { Service } from 'typedi/decorators/Service';
 import { lang } from '../../lang/index';
 import { FlashMessageType } from '../../types/flash-messages';
 import { IForm } from '../../types/form';
@@ -8,6 +9,7 @@ import { patch } from '../utils/api';
 import { FlashMessageStore } from './flash-message.store';
 import { matchValue, minLength, required } from './validators';
 
+@Service()
 export class RecoverPasswordStore
   implements IForm<{ user: Pick<IRegisterUser, 'password'> }> {
   @observable isLoading = false;
