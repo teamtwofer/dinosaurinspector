@@ -26,6 +26,7 @@ export class ForgotPasswordService {
       .createQueryBuilder('fp')
       .innerJoinAndSelect('fp.user', 'user')
       .where('fp.id=:id')
+      .andWhere(`fp."createdAt" >= NOW() - '1 day'::INTERVAL`)
       .setParameter('id', id)
       .getOne();
   }
