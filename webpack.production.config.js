@@ -53,6 +53,15 @@ module.exports = Object.assign({}, defaults, {
             {
               loader: 'sass-loader', // compiles Sass to CSS
             },
+            {
+              loader: 'postcss-loader', // autoprefixer and minification
+              options: {
+                plugins: loader => [
+                  require('autoprefixer')({ grid: true }),
+                  require('cssnano')(),
+                ],
+              },
+            },
           ],
         }),
       },
