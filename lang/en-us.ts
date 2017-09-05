@@ -10,6 +10,7 @@ export const enUS = {
   LOGIN: () => 'Please log in',
   CREATE_ACCOUNT: () => 'Create Account',
   FORGOT_PASSWORD: () => 'Forgot Password',
+  RECOVER_PASSWORD: () => 'Recover Password',
   NO_ACCOUNT: () => "Don't have an account?",
   CREATE_ONE: () => 'Create one',
   ACCOUNT_EXISTS: () => 'Already have an account?',

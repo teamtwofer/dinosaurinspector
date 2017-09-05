@@ -5,6 +5,7 @@ import { RouteComponentProps } from 'react-router';
 import { Stores } from '../../../stores';
 import { RecoverPasswordStore } from '../../../stores/recover-password.store';
 import { AccountHeading } from '../../ui/AccountHeading';
+import { Button } from '../../ui/Button';
 import { CallToAction } from '../../ui/CallToAction';
 import { Input } from '../../ui/Input';
 
@@ -45,9 +46,14 @@ export class RecoverPasswordContainer extends React.PureComponent<Props, {}> {
           <p>
             {error}
           </p>}
-        <button type="submit" disabled={isLoading} onClick={this.createAccount}>
+        <Button
+          type="submit"
+          isLoading={isLoading}
+          disabled={isLoading}
+          onClick={this.createAccount}
+        >
           Login
-        </button>
+        </Button>
         <CallToAction match={match} />
       </form>
     );

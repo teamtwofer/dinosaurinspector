@@ -80,6 +80,7 @@
     "http-proxy": "^1.16.2",
     "jest": "^20.0.4",
     "jsonwebtoken": "7.4.3",
+    "material-ui": "^1.0.0-beta.8",
     "mobx": "3.2.2",
     "mobx-react": "^4.2.2",
     "morgan": "^1.8.2",
@@ -134,5 +135,8 @@
       "node_modules",
       "serverBuild"
     ]
+  },
+  "devDependencies": {
+    "uglify-js": "^2.8.29"
   }
 }

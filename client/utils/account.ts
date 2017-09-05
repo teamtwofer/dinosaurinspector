@@ -13,6 +13,10 @@ export function isRememberingPassword(match: Match<void>) {
   return match.url.includes(forgotPassword());
 }
 
+export function isRecoveringPassword(match: Match<void>) {
+  return match.url.includes('/recover-password/');
+}
+
 export function redirectPath(path?: string | null) {
   return !path || path.includes(account()) ? '/' : path;
 }

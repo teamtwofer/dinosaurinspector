@@ -17,8 +17,8 @@ export class Loading extends React.PureComponent<
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
           y="0px"
-          width="40px"
-          height="40px"
+          width="1rem"
+          height="1rem"
           viewBox="0 0 40 40"
           enableBackground="new 0 0 40 40"
         >

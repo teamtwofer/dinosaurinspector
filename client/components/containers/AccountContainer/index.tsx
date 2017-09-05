@@ -1,3 +1,5 @@
+import Grid from 'material-ui/Grid/Grid';
+import Paper from 'material-ui/Paper/Paper';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { Redirect, Route, RouteComponentProps } from 'react-router';
@@ -51,24 +53,28 @@ export class AccountContainer extends React.PureComponent<Props, {}> {
     return isSuccess(createAccountStore, forgotPasswordStore, loginStore) &&
     userStore.currentUser
       ? <Redirect to={redirectPath(next)} />
-      : <div>
-          <Route exact path={login()} component={LoginContainer} />
-          <Route
-            exact
-            path={createAccount()}
-            component={CreateAccountContainer}
-          />
-          <Route
-            exact
-            path={forgotPassword()}
-            component={ForgotPasswordContainer}
-          />
-          <Route
-            exact
-            path={recoverPassword()}
-            component={RecoverPasswordContainer}
-          />
-        </div>;
+      : <Grid container justify="center">
+          <Grid item>
+            <Paper className="padding-medium">
+              <Route exact path={login()} component={LoginContainer} />
+              <Route
+                exact
+                path={createAccount()}
+                component={CreateAccountContainer}
+              />
+              <Route
+                exact
+                path={forgotPassword()}
+                component={ForgotPasswordContainer}
+              />
+              <Route
+                exact
+                path={recoverPassword()}
+                component={RecoverPasswordContainer}
+              />
+            </Paper>
+          </Grid>
+        </Grid>;
   }
 }
 
