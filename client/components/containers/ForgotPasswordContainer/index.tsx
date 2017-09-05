@@ -11,6 +11,7 @@ import { Button } from '../../ui/Button';
 import { CallToAction } from '../../ui/CallToAction';
 import { Input } from '../../ui/Input';
 
+// tslint:disable-next-line:no-var-requires
 const style = require('./style.scss');
 
 @inject(({ forgotPasswordStore }: Stores) => ({ forgotPasswordStore }))
