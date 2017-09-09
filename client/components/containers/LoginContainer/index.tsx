@@ -6,6 +6,7 @@ import { Stores } from '../../../stores';
 import { LoginStore } from '../../../stores/login.store';
 import { UserStore } from '../../../stores/user.store';
 import { AccountHeading } from '../../ui/AccountHeading';
+import { Button } from '../../ui/Button';
 import { CallToAction } from '../../ui/CallToAction';
 import { Input } from '../../ui/Input';
 
@@ -27,7 +28,7 @@ export class LoginContainer extends React.PureComponent<Props, never> {
   }
   render() {
     const { match } = this.props;
-    const { email, password, error } = this.props.loginStore!;
+    const { email, password, error, isLoading } = this.props.loginStore!;
     return (
       <form onSubmit={this.login}>
         <AccountHeading match={match} />
@@ -37,9 +38,9 @@ export class LoginContainer extends React.PureComponent<Props, never> {
           <p>
             {error}
           </p>}
-        <button type="submit" onClick={this.login}>
+        <Button isLoading={isLoading} type="submit" onClick={this.login}>
           Login
-        </button>
+        </Button>
         <CallToAction match={match} />
       </form>
     );

@@ -11,4 +11,9 @@
 .image {
   object-fit: scale-down;
   object-position: left;
+  display: flex;
+  flex: 1;
+  justify-self: center;
+  align-self: flex-start;
+  height: 100%;
 }

@@ -9,6 +9,7 @@ import {
   isLogin,
   isRememberingPassword,
 } from '../../../utils/account';
+import { Button } from '../Button/index';
 
 export class CallToAction extends React.PureComponent<
   Pick<Props, 'match'>,
@@ -30,7 +31,15 @@ export class CallToAction extends React.PureComponent<
 function AccountLink() {
   return (
     <p>
-      {lang.NO_ACCOUNT()} <Link to={createAccount()}>{lang.CREATE_ONE()}</Link>
+      {lang.NO_ACCOUNT()}{' '}
+      <Button
+        raised={false}
+        color="default"
+        removeMargin
+        {...{ component: Link, to: createAccount() }}
+      >
+        {lang.CREATE_ONE()}
+      </Button>
     </p>
   );
 }
@@ -38,7 +47,15 @@ function AccountLink() {
 function LoginLink() {
   return (
     <p>
-      {lang.ACCOUNT_EXISTS()} <Link to={login()}>{lang.LOGIN_INSTEAD()}</Link>
+      {lang.ACCOUNT_EXISTS()}
+      <Button
+        raised={false}
+        color="default"
+        removeMargin
+        {...{ component: Link, to: login() }}
+      >
+        {lang.LOGIN_INSTEAD()}
+      </Button>
     </p>
   );
 }
@@ -46,8 +63,15 @@ function LoginLink() {
 function ForgotPassword() {
   return (
     <p>
-      {lang.CANT_REMEMBER()}{' '}
-      <Link to={forgotPassword()}>{lang.GET_A_NEW_ONE()}</Link>
+      {lang.CANT_REMEMBER()}
+      <Button
+        raised={false}
+        color="default"
+        removeMargin
+        {...{ component: Link, to: forgotPassword() }}
+      >
+        {lang.GET_A_NEW_ONE()}
+      </Button>
     </p>
   );
 }

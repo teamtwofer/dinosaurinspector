@@ -5,6 +5,7 @@ import { lang } from '../../../../lang';
 import {
   isCreatingAccount,
   isLogin,
+  isRecoveringPassword,
   isRememberingPassword,
 } from '../../../utils/account';
 import { Heading, HeadingStyle } from '../Heading';
@@ -18,6 +19,7 @@ export class AccountHeading extends React.PureComponent<any, any> {
         {isLogin(match) && lang.LOGIN()}
         {isCreatingAccount(match) && lang.CREATE_ACCOUNT()}
         {isRememberingPassword(match) && lang.FORGOT_PASSWORD()}
+        {isRecoveringPassword(match) && lang.RECOVER_PASSWORD()}
       </Heading>
     );
   }
