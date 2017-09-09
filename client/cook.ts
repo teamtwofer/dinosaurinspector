@@ -16,7 +16,9 @@ export function cook<Entity extends object, CookingKeys extends keyof Entity>(
   Object.assign(entity, rawEntity);
 
   if (complexKeys) {
-    for (const subCooker of Object.keys(complexKeys) as Array<keyof Entity>) {
+    for (const subCooker of Object.keys(complexKeys) as Array<
+      keyof typeof complexKeys
+    >) {
       const subCookerValue = rawEntity[subCooker];
       const cookerFunction = complexKeys[subCooker];
       const value = subCookerValue ? cookerFunction(subCookerValue) : null;
