@@ -110,7 +110,7 @@
     "tsutils": "2.8.0",
     "typedi": "^0.5.2",
     "typeorm": "0.1.0-alpha.34",
-    "typescript": "2.4.2",
+    "typescript": "^2.5.2",
     "ua-parser-js": "^0.7.14",
     "webpack": "3.5.5",
     "webpack-dev-middleware": "1.12.0",
