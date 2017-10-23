@@ -18,7 +18,7 @@ export class FlashMessages extends React.PureComponent<Props, any> {
       <section className={styles.messagesContainer}>
         {messages.map((m, i) =>
           <FlashMessage
-            key={i}
+            key={`${i}`}
             index={i}
             removeMessage={removeMessage}
             message={m}
