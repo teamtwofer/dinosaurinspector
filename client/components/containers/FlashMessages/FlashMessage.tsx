@@ -6,9 +6,6 @@ import * as React from 'react';
 import { IFlashMessage } from '../../../../types/flash-messages';
 import { FlashMessageStore } from '../../../stores/flash-message.store';
 
-// tslint:disable-next-line:no-var-requires
-// const styles = require('./styles.scss');
-
 @observer
 export class FlashMessage extends React.PureComponent<Props, any> {
   @autobind
