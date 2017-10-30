@@ -7,16 +7,13 @@ export default (app: Express) => {
   // tslint:disable-next-line:no-var-requires
   const config: any = require('../webpack.development.config');
   const compiler = webpack(config);
-  const middleware = wepackDevMiddleware(
-    compiler,
-    {
-      publicPath: config.output.publicPath,
-      // tslint:disable-next-line:object-literal-sort-keys
-      hot: true,
-      noInfo: true,
-      stats: 'minimal',
-    } as any
-  );
+  const middleware = wepackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    // tslint:disable-next-line:object-literal-sort-keys
+    hot: true,
+    noInfo: true,
+    stats: 'minimal',
+  } as any);
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));

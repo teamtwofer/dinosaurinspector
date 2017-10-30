@@ -5,11 +5,7 @@ import * as React from 'react';
 export class ErrorMessage extends React.PureComponent<Props, never> {
   render() {
     const { error } = this.props;
-    return error
-      ? <p>
-          {error}
-        </p>
-      : null;
+    return error ? <p>{error}</p> : null;
   }
 }
 

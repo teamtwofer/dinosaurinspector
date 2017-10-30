@@ -34,10 +34,7 @@ export class LoginContainer extends React.PureComponent<Props, never> {
         <AccountHeading match={match} />
         <Input field={email} name="email" type="email" />
         <Input field={password} name="password" type="password" />
-        {error &&
-          <p>
-            {error}
-          </p>}
+        {error && <p>{error}</p>}
         <Button isLoading={isLoading} type="submit" onClick={this.login}>
           Login
         </Button>

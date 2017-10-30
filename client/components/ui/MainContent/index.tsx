@@ -6,9 +6,7 @@ const styles = require('./style.scss');
 export class MainContent extends React.Component<{}, {}> {
   render() {
     return (
-      <section className={styles.mainContent}>
-        {this.props.children}
-      </section>
+      <section className={styles.mainContent}>{this.props.children}</section>
     );
   }
 }

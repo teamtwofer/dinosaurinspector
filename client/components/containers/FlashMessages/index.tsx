@@ -16,14 +16,14 @@ export class FlashMessages extends React.PureComponent<Props, any> {
     const { messages, removeMessage } = this.props.flashMessageStore!;
     return (
       <section className={styles.messagesContainer}>
-        {messages.map((m, i) =>
+        {messages.map((m, i) => (
           <FlashMessage
             key={`${i}`}
             index={i}
             removeMessage={removeMessage}
             message={m}
           />
-        )}
+        ))}
       </section>
     );
   }

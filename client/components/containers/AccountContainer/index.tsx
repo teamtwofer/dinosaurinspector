@@ -51,30 +51,32 @@ export class AccountContainer extends React.PureComponent<Props, {}> {
       userStore,
     } = this.props;
     return isSuccess(createAccountStore, forgotPasswordStore, loginStore) &&
-    userStore.currentUser
-      ? <Redirect to={redirectPath(next)} />
-      : <Grid container justify="center">
-          <Grid item>
-            <Paper className="padding-medium">
-              <Route exact path={login()} component={LoginContainer} />
-              <Route
-                exact
-                path={createAccount()}
-                component={CreateAccountContainer}
-              />
-              <Route
-                exact
-                path={forgotPassword()}
-                component={ForgotPasswordContainer}
-              />
-              <Route
-                exact
-                path={recoverPassword()}
-                component={RecoverPasswordContainer}
-              />
-            </Paper>
-          </Grid>
-        </Grid>;
+      userStore.currentUser ? (
+      <Redirect to={redirectPath(next)} />
+    ) : (
+      <Grid container justify="center">
+        <Grid item>
+          <Paper className="padding-medium">
+            <Route exact path={login()} component={LoginContainer} />
+            <Route
+              exact
+              path={createAccount()}
+              component={CreateAccountContainer}
+            />
+            <Route
+              exact
+              path={forgotPassword()}
+              component={ForgotPasswordContainer}
+            />
+            <Route
+              exact
+              path={recoverPassword()}
+              component={RecoverPasswordContainer}
+            />
+          </Paper>
+        </Grid>
+      </Grid>
+    );
   }
 }
 

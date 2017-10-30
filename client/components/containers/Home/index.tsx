@@ -6,9 +6,7 @@ export class Home extends React.PureComponent<{}, {}> {
   render() {
     return (
       <article>
-        <Heading center>
-          {lang.IDEATION()}
-        </Heading>
+        <Heading center>{lang.IDEATION()}</Heading>
         <Heading center headingStyle={HeadingStyle.Sub}>
           {lang.THANKS_FOR_VISITING()}
         </Heading>
