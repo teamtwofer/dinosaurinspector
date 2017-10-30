@@ -22,12 +22,13 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     mailerCalled = jest.fn();
-    Test.createTestingModule({
+    const module = await Test.createTestingModule({
       components: [
         UserService,
         DatabaseConfig,
         UserSerializer,
         ForgotPasswordService,
+        DatabaseService,
         {
           provide: EmailService,
           useValue: {
@@ -39,7 +40,7 @@ describe('UserService', () => {
         },
       ],
       modules: [DatabaseModule, ForgotPasswordModule, EmailModule],
-    });
+    }).compile();
 
     ben = {
       email: 'ben@twofer.co',
@@ -47,8 +48,8 @@ describe('UserService', () => {
       password: 'potato',
     };
 
-    service = Test.get<UserService>(UserService);
-    db = Test.get(DatabaseService);
+    service = module.get<UserService>(UserService);
+    db = module.get(DatabaseService);
     user = await service.add(ben);
     return;
   });

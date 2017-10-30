@@ -8,10 +8,10 @@ import { HttpException } from '@nestjs/core';
 import { validate } from 'class-validator';
 
 @Pipe()
-export class ValidatorPipe implements PipeTransform {
+export class ValidatorPipe implements PipeTransform<any> {
   async transform(value: any, metadata: ArgumentMetadata) {
     const { metatype } = metadata;
-    if (!this.toValidate(metatype)) {
+    if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
     const object = Object.assign(new metatype(), value);
@@ -29,7 +29,7 @@ export class ValidatorPipe implements PipeTransform {
     return value;
   }
 
-  private toValidate(metatype = null): boolean {
+  private toValidate(metatype: any = null): boolean {
     const types = [String, Boolean, Number, Array, Object];
     return !types.find(type => metatype === type);
   }

@@ -33,17 +33,18 @@ describe('UserController', () => {
   const realDate = new Date('2016-06-01T07:00:00+0000');
 
   beforeEach(async () => {
-    Test.createTestingModule({
+    const module = await Test.createTestingModule({
       components: [
         UserService,
         DatabaseConfig,
         UserSerializer,
         ForgotPasswordService,
         EmailService,
+        DatabaseService,
       ],
       controllers: [UserController],
       modules: [DatabaseModule, ForgotPasswordModule, EmailModule],
-    });
+    }).compile();
 
     ben = {
       email: 'ben@twofer.co',
@@ -51,8 +52,8 @@ describe('UserController', () => {
       password: 'potato',
     };
 
-    controller = Test.get<UserController>(UserController);
-    db = Test.get(DatabaseService);
+    controller = module.get<UserController>(UserController);
+    db = module.get<DatabaseService>(DatabaseService);
     jsonResonse = {};
     user = await controller.service.add(ben);
     ben.password = 'potato';
