@@ -49,12 +49,12 @@ export class UserService implements ICrud<User, IRegisterUser> {
   @autobind
   async add(userToRegister: IRegisterUser) {
     const user = await User.from(userToRegister);
-    return (await this.repository).persist(user);
+    return (await this.repository).save(user);
   }
 
   @autobind
   async addAll(...users: User[]) {
-    return (await this.repository).persist(users);
+    return (await this.repository).save(users);
   }
 
   @autobind
@@ -69,7 +69,7 @@ export class UserService implements ICrud<User, IRegisterUser> {
 
   @autobind
   async update(user: User) {
-    return (await this.repository).persist(user);
+    return (await this.repository).save(user);
   }
 
   @autobind

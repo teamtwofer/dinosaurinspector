@@ -46,10 +46,13 @@ server.get('*', (req, res, next) => {
 if (!isProduction) {
   bundle(server);
 }
+async function bootstrapApplication() {
+  const app = await NestFactory.create(ApplicationModule, server);
+  app.setGlobalPrefix('api');
+  app.listen(port, () => {
+    // tslint:disable-next-line:no-console
+    console.info('Application is listening on port ' + port);
+  });
+}
 
-const app = NestFactory.create(ApplicationModule, server);
-app.setGlobalPrefix('api');
-app.listen(port, () => {
-  // tslint:disable-next-line:no-console
-  console.info('Application is listening on port ' + port);
-});
+bootstrapApplication();

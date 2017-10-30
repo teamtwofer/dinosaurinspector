@@ -35,7 +35,7 @@ export class DatabaseService {
   }
 
   async getEntityManager(): Promise<EntityManager> {
-    return (await this.connection).entityManager;
+    return (await this.connection).manager;
   }
 
   async getRepository<T>(

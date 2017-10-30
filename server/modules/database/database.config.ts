@@ -14,7 +14,7 @@ export class DatabaseConfig {
       ? PG.parse(process.env.DATABASE_URL!)
       : {} as PG.ConnectionOptions;
     return {
-      autoSchemaSync: true,
+      synchronize: true,
       database: useOptions
         ? options.database!
         : isTesting ? 'dinosaur_testing' : 'dinosaur_development',

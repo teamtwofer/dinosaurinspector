@@ -14,16 +14,16 @@ export class FlashMessage extends React.PureComponent<Props, any> {
   }
   render() {
     const { message } = this.props;
-    return message.content
-      ? <SnackbarContent
-          message={message.content}
-          action={
-            <Button color="accent" dense onClick={this.didRemove}>
-              close
-            </Button>}
-          // tslint:disable-next-line:jsx-alignment
-        />
-      : null;
+    return message.content ? (
+      <SnackbarContent
+        message={message.content}
+        action={
+          <Button color="accent" dense onClick={this.didRemove}>
+            close
+          </Button>
+        }
+      />
+    ) : null;
   }
 }
 

@@ -6,11 +6,7 @@ const styles = require('./style.scss');
 
 export class MainGrid extends React.Component<any, {}> {
   render() {
-    return (
-      <main className={styles.grid}>
-        {this.props.children}
-      </main>
-    );
+    return <main className={styles.grid}>{this.props.children}</main>;
   }
 }
 
