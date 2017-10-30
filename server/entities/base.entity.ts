@@ -1,12 +1,10 @@
 import {
-  AbstractEntity,
   CreateDateColumn,
   Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@AbstractEntity()
 export class Base {
   @PrimaryGeneratedColumn() id: number;
 

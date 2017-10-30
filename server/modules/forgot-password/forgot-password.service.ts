@@ -17,7 +17,7 @@ export class ForgotPasswordService {
   async add(user: User): Promise<ForgotPassword> {
     const forgotPassword = new ForgotPassword();
     forgotPassword.user = user;
-    return (await this.repository).persist(forgotPassword);
+    return (await this.repository).save(forgotPassword);
   }
 
   @autobind
