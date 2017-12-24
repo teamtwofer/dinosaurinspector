@@ -13,12 +13,13 @@ export class DatabaseConfig {
     const options = useOptions
       ? PG.parse(process.env.DATABASE_URL!)
       : {} as PG.ConnectionOptions;
+
     return {
       synchronize: true,
       database: useOptions
         ? options.database!
         : isTesting ? 'dinosaur_testing' : 'dinosaur_development',
-      host: useOptions ? options.host! : 'localhost',
+      host: useOptions ? options.host! : 'db',
       password: useOptions ? options.password! : 'potato',
       port: useOptions ? options.port! : 5432,
       type: 'postgres',

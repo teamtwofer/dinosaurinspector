@@ -14,8 +14,8 @@
     "lint": "tslint -t stylish \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
     "lint:ci": "npm run lint && npm run lint:prettier:list",
     "lint:fix": "npm run lint -- --fix",
-    "lint:prettier": "prettier --single-quote --trailing-comma=es5 --write \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
-    "lint:prettier:list": "prettier --single-quote --trailing-comma=es5 -l \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
+    "lint:prettier": "prettier --write \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
+    "lint:prettier:list": "prettier -l \"{client,lang,server,types,__{tests,mocks}__}/**/*.t{sx,s}\"",
     "lint:fmt": "npm run lint:prettier && npm run lint:fix",
     "test": "jest",
     "test:update": "npm run test -- -u"
