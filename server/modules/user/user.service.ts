@@ -115,7 +115,7 @@ export class UserService implements ICrud<User, IRegisterUser> {
     }
 
     const { id } = user;
-    return jwt.sign({ id } as object, key, {
+    return jwt.sign(`${id}`, key, {
       expiresIn: 60 * 60 * 24 * 14,
     });
   }
@@ -123,11 +123,11 @@ export class UserService implements ICrud<User, IRegisterUser> {
   @autobind
   async validateToken(token: string): Promise<number> {
     return await new Promise<number>((res, rej) => {
-      jwt.verify(token, key, (err, decoded: { id: number }) => {
+      jwt.verify(token, key, (err, decoded) => {
         if (err) {
-          return rej(err);
+          rej(err);
         }
-        return res(decoded.id);
+        res(parseInt(decoded as string, 10));
       });
     });
   }
