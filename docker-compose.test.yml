@@ -1,18 +1,17 @@
 version: '3'
 services:
-  web:
+  web_test:
     build: .
-    command: npm run server:watch
     depends_on:
-      - postgres
+      - postgres_test
     volumes: 
       - .:/app/
       - /app/node_modules
-    network_mode: service:postgres
+    network_mode: service:postgres_test
     environment: 
-      DATABASE_URL: postgres://bbayard:potato@db:5432/dinosaur_development
-      NODE_ENV: development
-  postgres:
+      DATABASE_URL: postgres://bbayard:potato@db:5432/dinosaur_test
+      NODE_ENV: test
+  postgres_test:
     image: postgres:9.6.2-alpine
     ports:
       - "5432:5432"
@@ -20,4 +19,5 @@ services:
     environment:
       POSTGRES_USER: bbayard
       POSTGRES_PASSWORD: potato
-      POSTGRES_DB: dinosaur_development
+      POSTGRES_DB: dinosaur_test
+      DATABASE_URL: postgres://bbayard:potato@db:5432/dinosaur_test
