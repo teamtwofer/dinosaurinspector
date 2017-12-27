@@ -12,20 +12,20 @@ export class DatabaseConfig {
     const useOptions = !!process.env.DATABASE_URL;
     const options = useOptions
       ? PG.parse(process.env.DATABASE_URL!)
-      : {} as PG.ConnectionOptions;
+      : ({} as PG.ConnectionOptions);
 
     return {
       synchronize: true,
       database: useOptions
         ? options.database!
-        : isTesting ? 'dinosaur_testing' : 'dinosaur_development',
+        : isTesting ? 'dinosaur_test' : 'dinosaur_development',
       host: useOptions ? options.host! : 'db',
       password: useOptions ? options.password! : 'potato',
       port: useOptions ? options.port! : 5432,
       type: 'postgres',
       username: useOptions ? options.user! : 'bbayard',
       entities: [User, ForgotPassword],
-      logging: isTesting ? false : 'all',
+      logging: isTesting ? ['error'] : 'all',
       name: `${Date.now()}`,
     };
   }

@@ -63,8 +63,6 @@ describe('UserController', () => {
   });
 
   afterEach(async () => {
-    const users = await controller.service.getAll();
-    await Promise.all(users.map(controller.service.remove));
     const connection = await db.connection;
     await connection.dropDatabase();
     await connection.close();
