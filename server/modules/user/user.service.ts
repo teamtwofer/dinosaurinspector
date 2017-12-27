@@ -116,7 +116,7 @@ export class UserService implements ICrud<User, IRegisterUser> {
 
     const { id } = user;
     return jwt.sign(`${id}`, key, {
-      expiresIn: 60 * 60 * 24 * 14,
+      expiresIn: '14d',
     });
   }
 
