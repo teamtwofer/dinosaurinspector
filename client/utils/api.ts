@@ -5,7 +5,7 @@ export function headers() {
   const token = storage.getItem(TOKEN);
   return {
     'Content-Type': 'application/json',
-    'x-access-token': token,
+    'x-access-token': token!,
   };
 }
 

@@ -14,9 +14,7 @@ import { Input } from '../../ui/Input';
 @observer
 export class LoginContainer extends React.PureComponent<Props, never> {
   @autobind
-  async login(
-    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
-  ) {
+  async login(e: React.FormEvent<any>) {
     e.preventDefault();
     const { loginUser } = this.props.loginStore!;
     const { loadUser } = this.props.userStore!;
