@@ -13,9 +13,7 @@ import { Input } from '../../ui/Input';
 @observer
 export class RecoverPasswordContainer extends React.PureComponent<Props, {}> {
   @autobind
-  async createAccount(
-    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
-  ) {
+  async createAccount(e: React.FormEvent<any>) {
     e.preventDefault();
     const {
       recoverPasswordStore: { create },

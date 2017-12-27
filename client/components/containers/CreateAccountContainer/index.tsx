@@ -19,9 +19,7 @@ import { Input } from '../../ui/Input';
 @observer
 export class CreateAccountContainer extends React.PureComponent<Props, {}> {
   @autobind
-  async createAccount(
-    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
-  ) {
+  async createAccount(e: React.MouseEvent<any>) {
     e.preventDefault();
 
     const { createAccountStore: { create } } = this.props;
@@ -30,8 +28,14 @@ export class CreateAccountContainer extends React.PureComponent<Props, {}> {
   }
   render() {
     const { match } = this.props;
-    const { email, password, name, confirmPassword, error, isLoading } = this
-      .props.createAccountStore!;
+    const {
+      email,
+      password,
+      name,
+      confirmPassword,
+      error,
+      isLoading,
+    } = this.props.createAccountStore!;
     return (
       <form onSubmit={this.createAccount}>
         <AccountHeading match={match} />

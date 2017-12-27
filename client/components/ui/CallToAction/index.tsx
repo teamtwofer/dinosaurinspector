@@ -9,7 +9,7 @@ import {
   isLogin,
   isRememberingPassword,
 } from '../../../utils/account';
-import { Button } from '../Button/index';
+import { Button } from '../Button';
 
 export class CallToAction extends React.PureComponent<
   Pick<Props, 'match'>,
@@ -28,6 +28,10 @@ export class CallToAction extends React.PureComponent<
   }
 }
 
+function AccountInnerLink(props: any) {
+  return <Link to={createAccount()} {...props} />;
+}
+
 function AccountLink() {
   return (
     <p>
@@ -36,12 +40,16 @@ function AccountLink() {
         raised={false}
         color="default"
         removeMargin
-        {...{ component: Link, to: createAccount() }}
+        component={AccountInnerLink}
       >
         {lang.CREATE_ONE()}
       </Button>
     </p>
   );
+}
+
+function LoginInnerLink(props: any) {
+  return <Link to={login()} {...props} />;
 }
 
 function LoginLink() {
@@ -52,12 +60,16 @@ function LoginLink() {
         raised={false}
         color="default"
         removeMargin
-        {...{ component: Link, to: login() }}
+        component={LoginInnerLink}
       >
         {lang.LOGIN_INSTEAD()}
       </Button>
     </p>
   );
+}
+
+function ForgotPasswordInner(props: any) {
+  return <Link to={forgotPassword()} {...props} />;
 }
 
 function ForgotPassword() {
@@ -68,7 +80,7 @@ function ForgotPassword() {
         raised={false}
         color="default"
         removeMargin
-        {...{ component: Link, to: forgotPassword() }}
+        component={ForgotPasswordInner}
       >
         {lang.GET_A_NEW_ONE()}
       </Button>

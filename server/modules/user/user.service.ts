@@ -123,11 +123,11 @@ export class UserService implements ICrud<User, IRegisterUser> {
   @autobind
   async validateToken(token: string): Promise<number> {
     return await new Promise<number>((res, rej) => {
-      jwt.verify(token, key, (err, decoded: { id: number }) => {
+      jwt.verify(token, key, (err, decoded: any) => {
         if (err) {
-          return rej(err);
+          rej(err);
         }
-        return res(decoded.id);
+        res(decoded.id);
       });
     });
   }
