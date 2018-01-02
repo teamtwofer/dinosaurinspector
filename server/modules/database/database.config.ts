@@ -2,6 +2,7 @@ import { Component } from '@nestjs/common';
 import PG = require('pg-connection-string');
 import { ConnectionOptions } from 'typeorm';
 import { ForgotPassword } from '../../entities/forgot-password.entity';
+import { Measurement } from '../../entities/measurement.entity';
 import { User } from '../../entities/user.entity';
 
 @Component()
@@ -24,7 +25,7 @@ export class DatabaseConfig {
       port: useOptions ? options.port! : 5432,
       type: 'postgres',
       username: useOptions ? options.user! : 'bbayard',
-      entities: [User, ForgotPassword],
+      entities: [User, ForgotPassword, Measurement],
       logging: isTesting ? ['error'] : 'all',
       name: `${Date.now()}`,
     };

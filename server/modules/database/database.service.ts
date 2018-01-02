@@ -21,12 +21,13 @@ export class DatabaseService {
     }
     return createConnection(this.databaseConfig.getConfiguration())
       .then(connection => {
+        console.info(this.databaseConfig.getConfiguration());
         this._connection = connection;
         return connection;
       })
       .catch(e => {
         // tslint:disable:no-console
-        console.log('There was an error connection to the database');
+        console.log('There was an error connecting to the database');
         console.log(e.message);
         console.info(this.databaseConfig.getConfiguration());
         // tslint:enable:no-console

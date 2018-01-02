@@ -1,5 +1,5 @@
-import pink from 'material-ui/colors/pink';
-import teal from 'material-ui/colors/teal';
+import amber from 'material-ui/colors/amber';
+import indigo from 'material-ui/colors/indigo';
 import { createMuiTheme, Theme } from 'material-ui/styles';
 import { Service } from 'typedi/decorators/Service';
 
@@ -9,8 +9,8 @@ export class ThemeStore {
   constructor() {
     this.theme = createMuiTheme({
       palette: {
-        primary: pink,
-        secondary: teal,
+        primary: indigo,
+        secondary: amber,
       },
     });
   }

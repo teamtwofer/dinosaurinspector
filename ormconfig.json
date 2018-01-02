@@ -1,0 +1,16 @@
+{
+  "synchronize": true,
+  "database": "dinosaur_development",
+  "host": "db",
+  "password": "potato",
+  "port": "5432",
+  "type": "postgres",
+  "username": "bbayard",
+  "entities": [
+    "./serverBuild/server/entities/user.entity.js",
+    "./serverBuild/server/entities/forgot-password.entity.js",
+    "./serverBuild/server/entities/measurement.entity.js"
+  ],
+  "logging": "all",
+  "name": "default"
+}

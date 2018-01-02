@@ -11,7 +11,7 @@ import * as React from 'react';
 const classes = require('./style.scss');
 
 export interface Props extends InputProps {
-  field: FieldState<string>;
+  field: FieldState<any>;
   name: string;
   type?: string;
 }
@@ -24,7 +24,11 @@ export class Input extends React.PureComponent<Props, never> {
 
   @autobind
   onChange(e: React.FormEvent<any>) {
-    this.props.field.onChange(e.currentTarget.value);
+    if (typeof e.currentTarget.value === 'string') {
+      this.props.field.onChange(e.currentTarget.value);
+    } else {
+      this.props.field.onChange(parseFloat(e.currentTarget.value));
+    }
   }
 
   render() {

@@ -1,3 +1,5 @@
+import { MeasurementType } from '../types/measurement';
+
 // tslint:disable:object-literal-sort-keys
 export const enUS = {
   INVALID_EMAIL_OR_PASSWORD: () => 'Invalid email or password',
@@ -7,6 +9,7 @@ export const enUS = {
   EMAIL_VALIDATOR: (name: string) =>
     `${name} must contain an AT sign and a PERIOD`,
   MATCH_VALIDATOR: (f: string) => `Must match the value of ${f}`,
+  MIN_VALIDATOR: (f: string, min: number) => `${f} must be higher than ${min}`,
   LOGIN: () => 'Please log in',
   CREATE_ACCOUNT: () => 'Create Account',
   FORGOT_PASSWORD: () => 'Forgot Password',
@@ -26,16 +29,54 @@ export const enUS = {
     on the corresponding page.
   `,
   SEND_RECOVERY_EMAIL: () => 'Send Recovery Email',
-  IDEATION: () => 'Twofer is still under ideation.',
-  THANKS_FOR_VISITING: () => 'Thank you for checking out our site!',
-  WHY_NO_CONTENT: () => `
-    We are currently in the process of ethnography to determine what we
-    are going to build. We should have some updates soon.
+  IDEA: () => 'Track your weight-loss',
+  ENTER_YOUR_MEASUREMENTS: () =>
+    'Enter your measurements. Track your progress. Stay motivated.',
+  GET_STARTED_TODAY: () => `
+    Knowing if your diet or exercise routine is effective is a daunting task.
+    This app exists to help you identify other metrics of your progress than just
+    weight. 
   `,
   FLASH_CREATE_ACCOUNT: () => 'Your account was successfully created.',
   FLASH_LOGIN: () => 'Successfully Logged In!',
   FLASH_FORGOT_PASSWORD: () =>
     'If an account with this email has been created you should receive an email shortly.',
   FLASH_NEW_PASSWORD: () => 'Your new password has been set!',
+  START: () => 'Get Started',
+  MEASUREMENT_NAME: (measurementType: MeasurementType): string => {
+    switch (measurementType) {
+      case MeasurementType.BodyFat:
+        return 'Body Fat';
+      case MeasurementType.Bust:
+        return 'Bust';
+      case MeasurementType.Calves:
+        return 'Calves';
+      case MeasurementType.Chest:
+        return 'Chest';
+      case MeasurementType.Forearms:
+        return 'Forearms';
+      case MeasurementType.Hips:
+        return 'Hips';
+      case MeasurementType.Knees:
+        return 'Knees';
+      case MeasurementType.Midway:
+        return 'Midway';
+      case MeasurementType.Thighs:
+        return 'Thighs';
+      case MeasurementType.UpperArm:
+        return 'UpperArm';
+      case MeasurementType.Waist:
+        return 'Waist';
+    }
+  },
+  MEASUREMENT_UNIT: (measurementType: MeasurementType): string => {
+    switch (measurementType) {
+      case MeasurementType.BodyFat:
+        return '%';
+      default:
+        return 'in.';
+    }
+  },
+  SUBMIT_MEASUREMENTS: (_editing?: boolean) => 'Update',
 };
 // tslint:enable:object-literal-sort-keys

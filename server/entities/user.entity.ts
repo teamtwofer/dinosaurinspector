@@ -3,6 +3,7 @@ import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { IRegisterUser, IUser } from '../../types/user';
 import { Base } from './base.entity';
 import { ForgotPassword } from './forgot-password.entity';
+import { Measurement } from './measurement.entity';
 
 const SALT_ROUNDS = process.env.NODE_ENV === 'test' ? 1 : 12;
 
@@ -28,6 +29,9 @@ export class User extends Base implements IUser {
 
   @OneToMany(_type => ForgotPassword, fp => fp.user)
   forgotPasswords: ForgotPassword[];
+
+  @OneToMany(_type => Measurement, m => m.user)
+  measurements: Measurement[];
 
   constructor(name: string, email: string) {
     super();

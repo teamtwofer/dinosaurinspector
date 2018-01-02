@@ -21,3 +21,8 @@ export function matchValue(fieldName: string, other: () => FieldState<any>) {
   return (val?: string) =>
     !!val && val !== other().$ && lang.MATCH_VALIDATOR(fieldName);
 }
+
+export function min(fieldName: string, minAmount: number) {
+  return (val?: number) =>
+    !!val && val < minAmount && lang.MIN_LENGTH_VALIDATOR(fieldName, minAmount);
+}

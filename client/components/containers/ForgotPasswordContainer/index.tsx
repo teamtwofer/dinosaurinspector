@@ -17,7 +17,7 @@ const style = require('./style.scss');
 @inject(({ forgotPasswordStore }: Stores) => ({ forgotPasswordStore }))
 export class ForgotPasswordContainer extends React.PureComponent<Props, any> {
   @autobind
-  async createAccount(
+  async sendNewPassword(
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) {
     e.preventDefault();
@@ -30,7 +30,7 @@ export class ForgotPasswordContainer extends React.PureComponent<Props, any> {
   render() {
     const { match, forgotPasswordStore: { email, isLoading } } = this.props;
     return (
-      <form onSubmit={this.createAccount}>
+      <form onSubmit={this.sendNewPassword}>
         <AccountHeading match={match} />
         <Typography className={style.helperText}>
           {lang.EXPLAIN_FORGOT_PASSWORD()}

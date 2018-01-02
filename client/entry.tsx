@@ -13,6 +13,8 @@ import { CreateAccountStore } from './stores/create-account.store';
 import { FlashMessageStore } from './stores/flash-message.store';
 import { ForgotPasswordStore } from './stores/forgot-password.store';
 import { LoginStore } from './stores/login.store';
+import { MeasurementsFormStore } from './stores/measurements-form.store';
+import { MeasurementsStore } from './stores/measurements.store';
 import { RecoverPasswordStore } from './stores/recover-password.store';
 import { ThemeStore } from './stores/theme.store';
 import { UserStore } from './stores/user.store';
@@ -27,6 +29,8 @@ const loginStore = Container.get(LoginStore);
 const createAccountStore = Container.get(CreateAccountStore);
 const forgotPasswordStore = Container.get(ForgotPasswordStore);
 const recoverPasswordStore = Container.get(RecoverPasswordStore);
+const measurementsStore = Container.get(MeasurementsStore);
+const measurementsFormStore = Container.get(MeasurementsFormStore);
 
 const { theme } = Container.get(ThemeStore);
 
@@ -38,10 +42,13 @@ const render = (Component: React.ComponentClass<any>) => {
         <Provider
           userStore={userStore}
           loginStore={loginStore}
-          createAccountStore={createAccountStore}
+          createAcc
+          ountStore={createAccountStore}
           forgotPasswordStore={forgotPasswordStore}
           recoverPasswordStore={recoverPasswordStore}
           flashMessageStore={flashMessageStore}
+          measurementsStore={measurementsStore}
+          measurementsFormStore={measurementsFormStore}
         >
           <Component />
         </Provider>

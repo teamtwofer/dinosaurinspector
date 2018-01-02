@@ -25,7 +25,7 @@ export class UserService implements ICrud<User, IRegisterUser> {
     }
   }
 
-  private get repository(): Promise<Repository<User>> {
+  get repository(): Promise<Repository<User>> {
     return this.databaseService.getRepository(User);
   }
 

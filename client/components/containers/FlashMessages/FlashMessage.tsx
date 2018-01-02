@@ -19,7 +19,7 @@ export class FlashMessage extends React.PureComponent<Props, any> {
         message={message.content}
         action={
           <Button color="accent" dense onClick={this.didRemove}>
-            close
+            ×
           </Button>
         }
       />

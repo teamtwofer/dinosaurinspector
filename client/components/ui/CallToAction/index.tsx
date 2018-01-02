@@ -29,7 +29,7 @@ export class CallToAction extends React.PureComponent<
 }
 
 function AccountInnerLink(props: any) {
-  return <Link to={createAccount()} {...props} />;
+  return <Link {...props} to={createAccount()} />;
 }
 
 function AccountLink() {
@@ -49,7 +49,7 @@ function AccountLink() {
 }
 
 function LoginInnerLink(props: any) {
-  return <Link to={login()} {...props} />;
+  return <Link {...props} to={login()} />;
 }
 
 function LoginLink() {
@@ -69,7 +69,7 @@ function LoginLink() {
 }
 
 function ForgotPasswordInner(props: any) {
-  return <Link to={forgotPassword()} {...props} />;
+  return <Link {...props} to={forgotPassword()} />;
 }
 
 function ForgotPassword() {

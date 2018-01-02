@@ -9,7 +9,7 @@ export function cook<Entity extends object, CookingKeys extends keyof Entity>(
   >
 ): Entity {
   for (const key of requiredKeys) {
-    if (!rawEntity[key]) {
+    if (rawEntity[key] === undefined || rawEntity[key] === null) {
       throw new TypeError(`${name} does not have required field ${key}.`);
     }
   }
